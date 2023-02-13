@@ -29,8 +29,12 @@ On commence par se connecter avec la commande :
 ssh pi@piensg030
 ```
 yes, next mdp is 'pipo'
+
 ```exit```
 copy ssh public key to the server 
+
 ```ssh-copy-id -i ~/.ssh/id_rsa pi@piensg030```
-then, connect using ```ssh pi@piensg030
+
+then, connect using 
+```ssh pi@piensg030
 ```
