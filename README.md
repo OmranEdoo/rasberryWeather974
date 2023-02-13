@@ -22,3 +22,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+La sonde sera constituée d'un raspberry pi. Vous utiliserez l'image de base fournie (pré-installé) le login est : pi / pipo
