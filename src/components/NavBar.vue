@@ -50,7 +50,6 @@ import {
   MDBDropdownMenu,
   MDBDropdownItem
 } from 'mdb-vue-ui-kit';
-
 import { ref } from 'vue';
 
 export default {
