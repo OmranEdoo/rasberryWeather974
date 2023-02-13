@@ -36,5 +36,6 @@ copy ssh public key to the server
 ```ssh-copy-id -i ~/.ssh/id_rsa pi@piensg030```
 
 then, connect using 
-```ssh pi@piensg030
+```
+ssh pi@piensg030
 ```
