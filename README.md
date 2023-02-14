@@ -48,12 +48,10 @@ ssh pi@piensg030
 ## DataBase setup
 We chose to work with https://www.influxdata.com/ :
 
-TO install Dependencies :
-Download from the command line
+To install Influx with Docker 
 ```
-# amd64
-wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.3.0-linux-amd64.tar.gz
-  
-# arm
-wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.3.0-linux-arm64.tar.gz
+$ docker run \
+      -p 8086:8086 \
+      -v myInfluxVolume:/var/lib/influxdb2 \
+      influxdb:latest
 ```
