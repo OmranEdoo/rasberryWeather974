@@ -46,7 +46,7 @@
                     <MDBCol md="3" lg="4" xl="3" class="mx-auto mb-4">
                         <!-- Content -->
                         <h6 class="text-uppercase fw-bold mb-4">
-                            <i class="fas fa-gem me-3"></i>Company name
+                            <i class="fas fa-gem me-3"></i>RASPBERRY WEATHER 974
                         </h6>
                         <p>
                             Here you can use rows and columns to organize your footer
@@ -60,16 +60,16 @@
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4">Products</h6>
                         <p>
-                            <a href="#!" class="text-reset">Angular</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">React</a>
-                        </p>
-                        <p>
                             <a href="#!" class="text-reset">Vue</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">Laravel</a>
+                            <a href="#!" class="text-reset">InfluxDB</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Express</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Bootstrap</a>
                         </p>
                     </MDBCol>
                     <!-- Grid column -->
@@ -78,13 +78,10 @@
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4">Useful links</h6>
                         <p>
-                            <a href="#!" class="text-reset">Pricing</a>
+                            <a href="#!" class="text-reset">About us</a>
                         </p>
                         <p>
                             <a href="#!" class="text-reset">Settings</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">Orders</a>
                         </p>
                         <p>
                             <a href="#!" class="text-reset">Help</a>
@@ -95,18 +92,19 @@
                     <MDBCol md="4" lg="3" xl="3" class="mx-auto mb-md-0 mb-4">
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-                        <p>
-                            <i class="fas fa-home me-3"></i> New York, NY 10012, US
+                        <p style="text-align: end;">
+                            <i class="fas fa-home me-3"></i>
+                            ENSG
+                            Champs-sur-Marne
+                            77420
                         </p>
-                        <p>
+                        <p style="text-align: end;">
                             <i class="fas fa-envelope me-3"></i>
-                            info@example.com
+                            omranedoo@gmail.com
+                            linasaba.18@gmail.com
                         </p>
-                        <p>
-                            <MDBIcon icon="phone" class="me-3" /> + 01 234 567 88
-                        </p>
-                        <p>
-                            <MDBIcon icon="print" class="me-3" /> + 01 234 567 89
+                        <p style="text-align: end;">
+                            <MDBIcon icon="phone" class="me-3" /> +33 7 65 77 55 80
                         </p>
                     </MDBCol>
                     <!-- Grid column -->
