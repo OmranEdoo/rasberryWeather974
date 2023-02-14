@@ -10,15 +10,21 @@ module.exports = defineConfig({
     },
     live: {
       entry: './src/pages/Live/main.js',
-      template: 'public/live.html',
+      template: 'public/index.html',
       title: 'Live Page',
       chunks: ['chunk-vendors', 'chunk-common', 'live']
     },
     archive: {
       entry: './src/pages/Archive/main.js',
-      template: 'public/archive.html',
+      template: 'public/index.html',
       title: 'Archive Page',
       chunks: ['chunk-vendors', 'chunk-common', 'archive']
+    },
+    about: {
+      entry: './src/pages/About/main.js',
+      template: 'public/index.html',
+      title: 'About Page',
+      chunks: ['chunk-vendors', 'chunk-common', 'about']
     }
   }
 })

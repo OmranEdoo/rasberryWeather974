@@ -16,11 +16,6 @@ export default {
         NavBar,
         FooterBar
 
-    },
-    data() {
-        return {
-            actualPage: "archive"
-        }
     }
 }
 </script>

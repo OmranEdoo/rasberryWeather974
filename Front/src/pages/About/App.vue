@@ -1,6 +1,12 @@
 <template>
     <div class="page">
-        <NavBar actual-page="live" />
+        <NavBar actual-page="about" />
+        <div>
+            <p>
+                This site is the realization of a student project as part of an advanced Web programming course in the
+                third year of engineering school.
+            </p>
+        </div>
         <FooterBar></FooterBar>
     </div>
 </template>
@@ -11,7 +17,7 @@ import FooterBar from './../../components/FooterBar.vue'
 
 
 export default {
-    name: 'LivePage',
+    name: 'AboutPage',
     components: {
         NavBar,
         FooterBar
