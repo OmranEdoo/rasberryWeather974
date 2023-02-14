@@ -1,16 +1,23 @@
 <template>
   <div id="app">
     <NavBar />
+    <GraphContainer></GraphContainer>
+    <FooterBar></FooterBar>
   </div>
 </template>
 
 <script>
 import NavBar from './components/NavBar.vue'
+import FooterBar from './components/FooterBar.vue'
+import GraphContainer from './components/GraphContainer.vue'
+
 
 export default {
   name: 'App',
   components: {
-    NavBar
+    NavBar,
+    FooterBar,
+    GraphContainer
   }
 }
 </script>
@@ -22,6 +29,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 0;
 }
 </style>
