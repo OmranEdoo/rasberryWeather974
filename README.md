@@ -23,6 +23,8 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+## SSH setup
+
 La sonde sera constituée d'un raspberry pi. Vous utiliserez l'image de base fournie (pré-installé) le login est : pi / pipo
 On commence par se connecter avec la commande :
 ```
@@ -38,4 +40,18 @@ copy ssh public key to the server
 then, connect using 
 ```
 ssh pi@piensg030
+```
+
+
+## DataBase setup
+We chose to work with https://www.influxdata.com/ :
+
+TO install Dependencies :
+Download from the command line
+```
+# amd64
+wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.3.0-linux-amd64.tar.gz
+  
+# arm
+wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.3.0-linux-arm64.tar.gz
 ```
