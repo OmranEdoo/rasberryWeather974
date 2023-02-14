@@ -1,15 +1,15 @@
 <template>
   <div id="app">
-    <NavBar />
+    <NavBar actual-page="home" />
     <GraphContainer></GraphContainer>
     <FooterBar></FooterBar>
   </div>
 </template>
 
 <script>
-import NavBar from './components/NavBar.vue'
-import FooterBar from './components/FooterBar.vue'
-import GraphContainer from './components/GraphContainer.vue'
+import NavBar from './../../components/NavBar.vue'
+import FooterBar from './../../components/FooterBar.vue'
+import GraphContainer from './../../components/GraphContainer.vue'
 
 
 export default {
@@ -18,6 +18,10 @@ export default {
     NavBar,
     FooterBar,
     GraphContainer
+  },
+  data() {
+    return {
+    }
   }
 }
 </script>

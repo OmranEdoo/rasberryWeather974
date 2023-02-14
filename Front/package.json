@@ -16,6 +16,7 @@
     "mdb-vue-ui-kit": "^3.2.0",
     "mongodb": "^5.0.1",
     "router-link": "^0.0.4",
+    "serve": "^14.2.0",
     "vue": "^3.2.47"
   },
   "devDependencies": {

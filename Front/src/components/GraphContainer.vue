@@ -51,6 +51,7 @@ export default {
 .containerColumn {
     display: flex;
     flex-direction: column;
+    padding: 20px;
 }
 
 .containerRow {
