@@ -356,21 +356,21 @@ components:
         measurements:
           type: object
           properties:
-            temp:
+            lum:
               type: object
               properties:
                 name:
                   type: string
-                  example: "Temperature"
+                  example: "Luminosity"
                 value:
                   type: number
-                  example: 25
+                  example: 2
                 unit:
                   type: string
-                  example: "C"
+                  example: "Lux"
                 desc:
                   type: string
-                  example: "Temperature"
+                  example: "Luminosity"
     Live_Temp:
       type: object
       properties:
