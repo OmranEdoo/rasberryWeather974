@@ -8,11 +8,11 @@ const wind_dir = null;
 let data = {}
 
 function getLiveData() {
-    fetch('path', {
-        method: 'GET',
+    fetch('http://localhost.com:3000', {
+        method: 'GET'/*,
         headers: {
             'Accept': 'application/json',
-        },
+        },*/
     })
         .then(response => response.json())
         .then(response => {
