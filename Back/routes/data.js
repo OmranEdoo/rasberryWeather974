@@ -37,8 +37,8 @@ router.get('/:measure', async function(req, res, next) {
           console.log('gps',gps)
           function test(){
             return gps.then(result=>{
-        const lat = result[1].latitude;
-        const long = result[1].longitude;
+        const lat = result[0].latitude;
+        const long = result[0].longitude;
         return [lat, long];
       })
     }
