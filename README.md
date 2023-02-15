@@ -50,8 +50,5 @@ We chose to work with https://www.influxdata.com/ :
 
 To install Influx with Docker 
 ```
-$ docker run \
-      -p 8086:8086 \
-      -v myInfluxVolume:/var/lib/influxdb2 \
-      influxdb:latest
+$ docker run       -p 8086:8086       -v myInfluxVolume:/var/lib/influxWeather       influxdb:1.8
 ```
