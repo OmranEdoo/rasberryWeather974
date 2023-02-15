@@ -1,9 +1,12 @@
 const Influx = require('influx');
 const fs = require('fs')
-
+const gps = require('chokidar');
+const rain = require('chokidar');
 const influx = new Influx.InfluxDB('http://localhost:8086/weather')
-
-const path = "/dev/shm/sensors";
+const nmea = require('@drivetech/node-nmea');
+const path_sensors = "/dev/shm/sensors";
+const path_gps = "/dev/shm/gpsNmea";
+const path_rain = "/dev/shm/rainCounter.log";
 
 //console.log(influx)
 // Create a table in InfluxDB
@@ -14,8 +17,8 @@ influx.getDatabaseNames()
     }
   })
   .then(() => {
-    fs.watchFile(path, (curr, prev) => {
-      fs.readFile(path, 'utf-8', (err, data) => {
+    fs.watchFile(path_sensors, (curr, prev) => {
+      fs.readFile(path_sensors, 'utf-8', (err, data) => {
         const dataJson = JSON.parse(data);
         console.log(dataJson);
         if (err) throw err;
@@ -29,7 +32,7 @@ influx.getDatabaseNames()
               date: dataJson.date
             },
           },{
-            measurement: 'pres',
+            measurement: 'pre',
             fields: { 
               unit: dataJson.measure[1].unit,
               value: dataJson.measure[1].value,
@@ -81,3 +84,66 @@ influx.getDatabaseNames()
     console.error(err);
 
   });
+
+
+gps.watch('/dev/shm/gpsNmea').on('change', (event, path) => {
+    
+    fs.readFile('/dev/shm/gpsNmea', 'utf8' , (err, dataRaw) => {
+            if (err) {
+              console.error(err)
+              return
+            }
+
+            data = nmea.parse(dataRaw.split("\n")[1]);
+            console.log("euh",data.loc['geojson'].coordinates);
+
+            influx.writePoints([
+                {
+                    measurement: "gps",
+                    fields: { 
+                        latitude: data.loc['geojson'].coordinates[1],
+                        longitude: data.loc['geojson'].coordinates[0],
+                        //date: data.date,
+                        name: "gps",
+                        unit: "°"
+                    },
+                }
+            ], {
+                database: 'weather',
+                precision: 'ms',
+            })
+                .catch(error => {
+                console.error(`Error saving data to InfluxDB! ${error.stack}`)
+              });
+            });
+        })
+
+rain.watch('/dev/shm/rainCounter.log').on('change', (event, path) => {
+    
+    fs.readFile('/dev/shm/rainCounter.log', 'utf8' , (err, data) => {
+      console.log("rain",typeof data);
+      data = data.replace('\n','');
+        if (err) {
+          console.error(err)
+          return
+        }
+        influx.writePoints([
+            {
+              measurement: "rain",
+              fields: {
+                unit: 'mm/m^2',
+                value: 0.3274,
+                name: 'Rainfall',
+                date: data
+              }
+            }
+        ], {
+            database: 'weather',
+            precision: 'ms',
+        })
+          .catch(error => {
+            console.error(`Error saving data to InfluxDB! ${error.stack}`)
+        });
+    });
+})
+
