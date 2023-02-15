@@ -15,11 +15,6 @@ export default {
     components: {
         NavBar,
         FooterBar
-    },
-    data() {
-        return {
-            actualPage: "live"
-        }
     }
 }
 </script>

@@ -18,10 +18,6 @@ export default {
     NavBar,
     FooterBar,
     GraphContainer
-  },
-  data() {
-    return {
-    }
   }
 }
 </script>

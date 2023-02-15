@@ -7,6 +7,9 @@
         <MDBNavbarItem href="home" :disabled="actualPage == 'home'">
           Home
         </MDBNavbarItem>
+        <MDBNavbarItem href="about" :disabled="actualPage == 'about'">
+          About
+        </MDBNavbarItem>
         <MDBNavbarItem href="#" onmousedown="window.scrollTo(0, document.body.scrollHeight);">
           Contact
         </MDBNavbarItem>
