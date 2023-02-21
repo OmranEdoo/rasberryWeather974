@@ -108,6 +108,7 @@ export default {
     padding-top: 50px;
     padding-right: 100px;
     padding-left: 100px;
+    padding-bottom: 50px;
     text-align: justify;
 }
 

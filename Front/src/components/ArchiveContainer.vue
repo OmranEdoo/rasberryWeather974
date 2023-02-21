@@ -1,4 +1,5 @@
 <template>
+    <h1 id="title">Archive Data</h1>
     <div class="containerColumn">
         <div class="containerRow">
             <canvas class="chart" id="chartPre"></canvas>
@@ -18,21 +19,32 @@ import chartPre from '../js/chart/pre.js'
 import chartLum from '../js/chart/lum.js'
 import chartTemp from '../js/chart/temp.js'
 import chartHum from '../js/chart/hum.js'
+import {creator} from '../js/chart/chart.js'
+
+import { getArchiveData } from '../js/importer/archiveDataImporter.js'
 
 
 export default {
-    name: 'GraphContainer',
+    name: 'ArchiveContainer',
     data() {
         return {
+            archive: getArchiveData,
+            value: null,
             chartPre: chartPre,
             chartLum: chartLum,
             chartTemp: chartTemp,
-            chartHum: chartHum
+            chartHum: chartHum,
+            chartCreator: creator,
+            chart: null
         }
     },
-    mounted() {
+    async mounted() {
+        this.value = await this.archive();
+
+        this.chart = this.chartCreator(this.value.values, this.value.times, this.value.name)
+
         const ctxPre = document.getElementById('chartPre');
-        new Chart(ctxPre, this.chartPre);
+        new Chart(ctxPre, this.chart);
 
         const ctxLum = document.getElementById('chartLum');
         new Chart(ctxLum, this.chartLum);
@@ -47,11 +59,14 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
+#title {
+padding-top: 20px;
+}
+
 .containerColumn {
     display: flex;
     flex-direction: column;
-    padding: 20px;
 }
 
 .containerRow {
@@ -63,5 +78,6 @@ export default {
     width: 50vw !important;
     height: min-content !important;
     font-weight: 100;
+    padding: 1vw;
 }
 </style>

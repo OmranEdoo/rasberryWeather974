@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { getLumLiveData, getHumLiveData, getPreLiveData, getTempLiveData } from '../js/importer/liveDataImporter.js'
+import { getLumLiveData, getHumLiveData, getPreLiveData, getTempLiveData, getRainLiveData, getWindSLiveData, getWindDLiveData, getGpsLiveData } from '../js/importer/liveDataImporter.js'
 import { ref } from "vue";
 import { MDBCarousel } from "mdb-vue-ui-kit";
 //import { threadId } from 'worker_threads';
@@ -39,6 +39,26 @@ export default {
                 src: "https://mdbootstrap.com/img/Photos/Slides/img%20(10).webp",
                 alt: "...",
                 caption: ""
+            },
+            {
+                src: "https://mdbootstrap.com/img/Photos/Slides/img%20(4).webp",
+                alt: "...",
+                caption: ""
+            },
+            {
+                src: "https://mdbootstrap.com/img/Photos/Slides/img%20(14).webp",
+                alt: "...",
+                caption: ""
+            },
+            {
+                src: "https://mdbootstrap.com/img/Photos/Slides/img%20(18).webp",
+                alt: "...",
+                caption: ""
+            },
+            {
+                src: "https://mdbootstrap.com/img/Photos/Slides/img%20(9).webp",
+                alt: "...",
+                caption: ""
             }
         ];
         const carousel1 = ref(0);
@@ -53,24 +73,34 @@ export default {
             humLive: getHumLiveData,
             preLive: getPreLiveData,
             tempLive: getTempLiveData,
-            lumValue: null,
-            humValue: null,
-            preValue: null,
-            tempValue: null,
+            rainLive: getRainLiveData,
+            windSLive: getWindSLiveData,
+            windDLive: getWindDLiveData,
+            gpsLive: getGpsLiveData,
+            value: null,
             slideInterval: 100
         }
     },
     async mounted() {
         //this.allValue = await this.allLive();
-        this.lumValue = await this.lumLive();
-        this.items1[0].caption = "Luminosity : " + this.lumValue.toString() + " lux";
-        this.humValue = await this.humLive();
-        this.items1[1].caption = "Humidity : " + this.humValue.toString() + "%";
-        this.preValue = await this.preLive();
-        this.items1[2].caption = "Pressure : " + this.preValue.toString() + " hPa";
-        this.tempValue = await this.tempLive();
-        this.items1[3].caption = "Temperature : " + this.tempValue.toString() + "°C";
-        this.slideInterval = 2000;
+        this.value = await this.lumLive();
+        this.items1[0].caption = "Luminosity : " + this.value.value.toString() + " " + this.value.unit.toString();
+        this.value = await this.humLive();
+        this.items1[1].caption = "Humidity : " + this.value.value.toString() + " " + this.value.unit.toString();
+        this.value = await this.preLive();
+        this.items1[2].caption = "Pressure : " + this.value.value.toString() + " " + this.value.unit.toString();
+        this.value = await this.tempLive();
+        this.items1[3].caption = "Temperature : " + this.value.value.toString() + " " + this.value.unit.toString();
+        this.value = await this.rainLive();
+        this.items1[4].caption = "Rain : " + this.value.value.toString() + " " + this.value.unit.toString();
+        this.value = await this.windSLive();
+        this.items1[5].caption = "Wind speed : " + this.value.value.toString() + " " + this.value.unit.toString();
+        this.value = await this.windDLive();
+        this.items1[6].caption = "Wind direction : " + this.value.value.toString() + " " + this.value.unit.toString();
+        this.value = await this.gpsLive();
+        this.items1[7].caption = "GPS : " + "(" + this.value.lat.toString() + ", " + this.value.long.toString() + ")";
+        
+        this.slideInterval = 3000;
     }
 }
 

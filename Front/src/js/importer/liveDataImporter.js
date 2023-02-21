@@ -1,6 +1,6 @@
 
 export const getLiveData = async function getLiveData() {
-    return fetch('http://localhost:3000/mock', {
+    return fetch('http://localhost:3000/mock/live', {
         method: 'GET'
     })
         .then(response => response.json())
@@ -10,13 +10,13 @@ export const getLiveData = async function getLiveData() {
 
             const values = response.measurements;
 
-            const lum = values.lum.value;
-            const hum = values.hum.value;
-            const temp = values.temp.value;
-            const pre = values.pre.value;
-            const rain = values.rain.value;
-            const wind_speed = values.wind_speed.value;
-            const wind_dir = values.wind_dir.value;
+            const lum = values.lum;
+            const hum = values.hum;
+            const temp = values.temp;
+            const pre = values.pre;
+            const rain = values.rain;
+            const wind_speed = values.wind_speed;
+            const wind_dir = values.wind_dir;
             const gps = response.location;
 
             let data = {
@@ -35,93 +35,93 @@ export const getLiveData = async function getLiveData() {
 }
 
 export const getLumLiveData = async function getLumLiveData() {
-    return fetch('http://localhost:3000/mock/lum', {
+    return fetch('http://localhost:3000/mock/live/lum', {
         method: 'GET'
     })
         .then(response => response.json())
         .then(response => {
             console.log(response)
 
-            return response.measurements.lum.value;
+            return response.measurements.lum;
         }).catch((error) => {
             console.log(error);
         });
 }
 
 export const getHumLiveData = async function getHumLiveData() {
-    return fetch('http://localhost:3000/mock/hum', {
+    return fetch('http://localhost:3000/mock/live/hum', {
         method: 'GET'
     })
         .then(response => response.json())
         .then(response => {
             console.log(JSON.stringify(response))
 
-            return response.measurements.hum.value;
+            return response.measurements.hum;
         })
 }
 
 export const getPreLiveData = async function getTempLiveData() {
-    return fetch('http://localhost:3000/mock/pre', {
+    return fetch('http://localhost:3000/mock/live/pre', {
         method: 'GET'
     })
         .then(response => response.json())
         .then(response => {
             console.log(JSON.stringify(response))
 
-            return response.measurements.pre.value;
+            return response.measurements.pre;
         })
 }
 
 export const getTempLiveData = async function getPreLiveData() {
-    return fetch('http://localhost:3000/mock/temp', {
+    return fetch('http://localhost:3000/mock/live/temp', {
         method: 'GET'
     })
         .then(response => response.json())
         .then(response => {
             console.log(JSON.stringify(response))
 
-            return response.measurements.temp.value;
+            return response.measurements.temp;
         })
 }
 
 export const getRainLiveData = async function getRainLiveData() {
-    return fetch('http://localhost:3000/mock/rain', {
+    return fetch('http://localhost:3000/mock/live/rain', {
         method: 'GET'
     })
         .then(response => response.json())
         .then(response => {
             console.log(JSON.stringify(response))
 
-            return response.measurements.rain.value;
+            return response.measurements.rain;
         })
 }
 
 export const getWindSLiveData = async function getWindSLiveData() {
-    return fetch('http://localhost:3000/mock/windS', {
+    return fetch('http://localhost:3000/mock/live/windS', {
         method: 'GET'
     })
         .then(response => response.json())
         .then(response => {
             console.log(JSON.stringify(response))
 
-            return response.measurements.wind_speed.value;
+            return response.measurements.wind_speed;
         })
 }
 
 export const getWindDLiveData = async function getWindDLiveData() {
-    return fetch('http://localhost:3000/mock/windD', {
+    return fetch('http://localhost:3000/mock/live/windD', {
         method: 'GET'
     })
         .then(response => response.json())
         .then(response => {
             console.log(JSON.stringify(response))
 
-            return response.measurements.wind_dir.value;
+            return response.measurements.wind_dir;
         })
 }
 
 export const getGpsLiveData = async function getGpsLiveData() {
-    return fetch('http://localhost:3000/mock/gps', {
+    return fetch('http://localhost:3000/mock/live/gps', {
         method: 'GET'
     })
         .then(response => response.json())

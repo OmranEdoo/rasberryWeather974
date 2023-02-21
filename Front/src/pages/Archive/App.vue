@@ -1,6 +1,7 @@
 <template>
     <div class="page">
         <NavBar actual-page="archive" />
+        <ArchiveContainer></ArchiveContainer>
         <FooterBar></FooterBar>
     </div>
 </template>
@@ -8,14 +9,16 @@
 <script>
 import NavBar from './../../components/NavBar.vue'
 import FooterBar from './../../components/FooterBar.vue'
+import ArchiveContainer from './../../components/ArchiveContainer.vue'
+
 
 
 export default {
     name: 'ArchivePage',
     components: {
         NavBar,
-        FooterBar
-
+        FooterBar,
+        ArchiveContainer
     }
 }
 </script>
