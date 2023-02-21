@@ -1,12 +1,14 @@
 <template>
     <div class="page">
         <NavBar actual-page="live" />
+        <LiveContainer></LiveContainer>
         <FooterBar></FooterBar>
     </div>
 </template>
 
 <script>
 import NavBar from './../../components/NavBar.vue'
+import LiveContainer from './../../components/LiveContainer.vue'
 import FooterBar from './../../components/FooterBar.vue'
 
 
@@ -14,6 +16,7 @@ export default {
     name: 'LivePage',
     components: {
         NavBar,
+        LiveContainer,
         FooterBar
     }
 }

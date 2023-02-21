@@ -12,12 +12,15 @@
     "bootstrap-vue": "^2.23.1",
     "chart.js": "^2.9.4",
     "core-js": "^3.8.3",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "mdb-vue-ui-kit": "^3.2.0",
+    "mdbootstrap": "^4.20.0",
     "mongodb": "^5.0.1",
     "router-link": "^0.0.4",
     "serve": "^14.2.0",
-    "vue": "^3.2.47"
+    "vue": "^3.2.47",
+    "vue-cli": "^2.9.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

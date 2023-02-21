@@ -10,6 +10,7 @@
 import { getLumLiveData, getHumLiveData, getPreLiveData, getTempLiveData } from '../js/importer/liveDataImporter.js'
 import { ref } from "vue";
 import { MDBCarousel } from "mdb-vue-ui-kit";
+//import { threadId } from 'worker_threads';
 
 
 export default {
@@ -60,6 +61,7 @@ export default {
         }
     },
     async mounted() {
+        //this.allValue = await this.allLive();
         this.lumValue = await this.lumLive();
         this.items1[0].caption = "Luminosity : " + this.lumValue.toString() + " lux";
         this.humValue = await this.humLive();
