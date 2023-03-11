@@ -48,7 +48,19 @@ ssh pi@piensg030
 ## DataBase setup
 We chose to work with https://www.influxdata.com/ :
 
-To install Influx with Docker 
+Before running the application you must have docker and run the following line :
 ```
-$ docker run       -p 8086:8086       -v myInfluxVolume:/var/lib/influxWeather       influxdb:1.8
+docker run -ti -p 8086:8086 -v influxdb:/var/lib/influxdb --name influxdb influxdb:1.8
+```
+Open a new terminal and run :
+```
+docker exec -ti influxdb bash
+```
+# You are in root@81ae2e0ca5f7:/#
+```
+influx
+```
+# You are now in influx
+```
+CREATE DATABASE weather
 ```
