@@ -21,13 +21,13 @@ router.get('/:period/:param', async function (req, res, next) {
     console.log("param : ", param)
     let period = req.params.period;
     console.log("period : ", period)
-    let date = new Date().toJSON();
-    console.log("date : ", date);
+    let today = new Date();
+    console.log("today : ", today);
 
     let gps = influx.query(
-        `select * from gps GROUP BY * ORDER BY DESC LIMIT 10`
+        `SELECT * FROM gps GROUP BY * ORDER BY DESC LIMIT 10`
     );
-    console.log('gps', gps)
+    //console.log('gps', gps)
     function test() {
         return gps.then(result => {
             const lat = result[0].latitude;
@@ -36,42 +36,57 @@ router.get('/:period/:param', async function (req, res, next) {
         })
     }
     let coord = await test();
+    valeurs = {
+        id: 30,
+        name: 'RaspberryWeather974',
+        location: {
+            latitude: coord[0],
+            longitude: coord[1]
+        },
+        status: 400,
+        measurements: {}
+
+    }
+    let value = [];
+    let time = [];
+    let period_date = new Date();
 
 
-
-    if (period == "week") {
+    if (period == "day") {
+        console.log("------day case------");
+        period_date.setDate(today.getDate() - 1)
+        console.log("date_day : ", period_date)
+    }
+    else if (period == "week") {
         console.log("------week case------");
-        let result = influx.query(
-            `select * from ${param} GROUP BY * ORDER BY time ASC limit 10`
-        );
-
-        result.then(results => {
-            for (let index = 0; index < results.length; index++) {
-                console.log("DEBUUUUUG", results[1])
-                valeurs[param] = {
-                    id: 30,
-                    name: 'RaspberryWeather974',
-                    location: {
-                        latitude: coord[0],
-                        longitude: coord[1]
-                    },
-                    time: results[index].date,
-                    status: 400,
-                    measurements: {
-                        [param]: {
-                            name: results[index].name,
-                            value: parseFloat(results[index].value),
-                            unit: results[index].unit,
-                            desc: results[index].name
-                        }
-                    }
-                }
-            }
-            res.json(valeurs[param])
-            console.log(valeurs)
-        })
+        period_date.setDate(today.getDate() - 7)
+        console.log("date_week : ", period_date)
+    }
+    else if (period == "month") {
+        console.log("------month case------");
+        period_date.setDate(today.getDate() - 30)
+        console.log("date_week : ", period_date)
     }
 
-})
+    result = influx.query(
+        `SELECT * FROM ${param} WHERE time > '${period_date.toISOString()}' AND time < '${today.toISOString()}' `
+    );
+    await result.then(results => {
+        for (let index = 0; index < results.length; index++) {
+            value.push(results[index].value)
+            time.push(results[index].date)
+            valeurs.measurements[param] = {
+                name: results[index].name,
+                desc: results[index].name,
+                unit: results[index].unit,
+            }
+        }
+        valeurs.measurements.values = value;
+        valeurs.measurements.times = time;
+    })
+
+    res.json(valeurs)
+}
+)
 
 module.exports = router;
