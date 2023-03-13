@@ -8,7 +8,6 @@ const path_sensors = "/Users/lina/Documents/GitHub/fakesonde/dev/shm/sensors";
 const path_gps = "/Users/lina/Documents/GitHub/fakesonde/dev/shm/gpsNmea";
 const path_rain = "/Users/lina/Documents/GitHub/fakesonde/dev/shm/rainCounter.log";
 
-//console.log(influx)
 // Create a table in InfluxDB
 influx.getDatabaseNames()
   .then(names => {
@@ -20,7 +19,7 @@ influx.getDatabaseNames()
     fs.watchFile(path_sensors, (curr, prev) => {
       fs.readFile(path_sensors, 'utf-8', (err, data) => {
         const dataJson = JSON.parse(data);
-        console.log(dataJson);
+        //console.log(dataJson);
         if (err) throw err;
         influx.writePoints([
           {
@@ -95,7 +94,6 @@ gps.watch(path_gps).on('change', (event, path) => {
     }
 
     data = nmea.parse(dataRaw.split("\n")[1]);
-    console.log("euh", data.loc['geojson'].coordinates);
 
     influx.writePoints([
       {
@@ -117,10 +115,11 @@ gps.watch(path_gps).on('change', (event, path) => {
       });
   });
 })
-
+console.log("rainnnn")
 rain.watch('path_rain').on('change', (event, path) => {
 
   fs.readFile(path_rain, 'utf8', (err, data) => {
+    console.log(path_rain)
     console.log("rain", typeof data);
     data = data.replace('\n', '');
     if (err) {
