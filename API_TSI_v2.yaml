@@ -1,0 +1,703 @@
+openapi: 3.0.3
+info:
+  title: API TSI 1.0
+  description: Here you can find the different routes of our API and the responses you will get !
+  termsOfService: http://swagger.io/terms/
+  contact: 
+    email: tsic22@ensg.eu
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+
+tags:
+  - name: Live
+    description: Get last values of features
+  - name: Archive
+    description: Access past values of features
+
+  
+paths:
+  /live:
+    get:
+      tags:
+        - Live
+      summary: Get last values
+      description: Get the last values of all features
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Live'          
+
+        '405':
+          description: Invalid input
+  /live/lum:
+    get:
+      tags:
+        - Live
+      summary: Get the last value of luminosity
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Live_Lum'          
+
+        '405':
+          description: Invalid input
+  /live/temp:
+    get:
+      tags:
+        - Live
+      summary: Get the last value of temperature
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Live_Temp'          
+
+        '405':
+          description: Invalid input
+  /live/hum:
+    get:
+      tags:
+        - Live
+      summary: Get the last value of humidity
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Live_Hum'          
+
+        '405':
+          description: Invalid input
+  /live/pre:
+    get:
+      tags:
+        - Live
+      summary: Get the last value of pressure
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Live_Pre'          
+
+        '405':
+          description: Invalid input
+  /live/rain:
+    get:
+      tags:
+        - Live
+      summary: Get the last value of rainfall
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Live_Rain'          
+
+        '405':
+          description: Invalid input
+  /live/wind_speed:
+    get:
+      tags:
+        - Live
+      summary: Get the last value of wind speed
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Live_WindS'          
+
+        '405':
+          description: Invalid input
+  /live/wind_dir:
+    get:
+      tags:
+        - Live
+      summary: Get the last value of wind direction
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Live_WindD'          
+
+        '405':
+          description: Invalid input
+  /live/gps:
+    get:
+      tags:
+        - Live
+      summary: Get the last value of gps coordinates
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Live_GPS'          
+
+        '405':
+          description: Invalid input
+  /archive/{feature}:
+    get:
+      tags:
+        - Archive
+      summary: Get the values for the feature between the two parameters "start" and "stop"
+      description: Get the values for the feature between the two parameters "start" and "stop"
+      operationId: findPetsByStatus
+      parameters:
+        - name: feature
+          in: path
+          description: Feature abreviation
+          schema:
+            type: string
+            enum: [lum,temp,hum,pre,rain,wind_speed,wind_dir]
+          required: true
+        - in: query
+          name: start
+          schema:
+            type: string
+            example: "2023-02-08T15:41:04.626Z"
+          required: true
+        - in: query
+          name: end
+          schema:
+            type: string
+            example: "2023-02-09T15:41:04.626Z"
+          required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Archive'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Archive'
+        '400':
+          description: Invalid status value
+components:
+  schemas:
+    Live:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: 'best group ever'
+        location:
+          type: object
+          properties:
+            lat:
+              type: number
+            long:
+              type: number
+        time:
+          type: string
+          example: "2023-02-08T15:41:04.626Z"
+        status:
+          type: boolean
+          example : true
+        measurements:
+          type: object
+          properties:
+            lum:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Lum"
+                value:
+                  type: number
+                  example: 2
+                unit:
+                  type: string
+                  example: "Lux"
+                desc:
+                  type: string
+                  example: "Luminosity"
+            hum:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Humidity"
+                value:
+                  type: number
+                  example: 45
+                unit:
+                  type: string
+                  example: "%"
+                desc:
+                  type: string
+                  example: "Humidity"
+            temp:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Temperature"
+                value:
+                  type: number
+                  example: 25
+                unit:
+                  type: string
+                  example: "C"
+                desc:
+                  type: string
+                  example: "Temperature"
+            pre:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Pressure"
+                value:
+                  type: number
+                  example: 0.5
+                unit:
+                  type: string
+                  example: "hPa"
+                desc:
+                  type: string
+                  example: "Atm Pressure"
+            rain:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Rainfall"
+                value:
+                  type: number
+                  example: 20
+                unit:
+                  type: string
+                  example: "mm/m²/h"
+                desc:
+                  type: string
+                  example: "Rainfall"
+            wind_speed:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Wind Speed"
+                value:
+                  type: number
+                  example: 20
+                unit:
+                  type: string
+                  example: "Kts"
+                desc:
+                  type: string
+                  example: "Wind speed in knots"
+            wind_dir:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Wind Direction"
+                value:
+                  type: number
+                  example: 120
+                unit:
+                  type: string
+                  example: "°"
+                desc:
+                  type: string
+                  example: "Wind direction in °, as in 360°"
+    Live_Lum:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: 'best group ever'
+        location:
+          type: object
+          properties:
+            lat:
+              type: number
+            long:
+              type: number
+        time:
+          type: string
+          example: "2023-02-08T15:41:04.626Z"
+        status:
+          type: boolean
+          example : true
+        measurements:
+          type: object
+          properties:
+            temp:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Temperature"
+                value:
+                  type: number
+                  example: 25
+                unit:
+                  type: string
+                  example: "C"
+                desc:
+                  type: string
+                  example: "Temperature"
+    Live_Temp:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: 'best group ever'
+        location:
+          type: object
+          properties:
+            lat:
+              type: number
+            long:
+              type: number
+        time:
+          type: string
+          example: "2023-02-08T15:41:04.626Z"
+        status:
+          type: boolean
+          example : true
+        measurements:
+          type: object
+          properties:
+            temp:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Temperature"
+                value:
+                  type: number
+                  example: 25
+                unit:
+                  type: string
+                  example: "C"
+                desc:
+                  type: string
+                  example: "Temperature"
+    Live_Hum:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: 'best group ever'
+        location:
+          type: object
+          properties:
+            lat:
+              type: number
+            long:
+              type: number
+        time:
+          type: string
+          example: "2023-02-08T15:41:04.626Z"
+        status:
+          type: boolean
+          example : true
+        measurements:
+          type: object
+          properties:
+            hum:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Humidity"
+                value:
+                  type: number
+                  example: 45
+                unit:
+                  type: string
+                  example: "%"
+                desc:
+                  type: string
+                  example: "Humidity"
+    Live_Pre:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: 'best group ever'
+        location:
+          type: object
+          properties:
+            lat:
+              type: number
+            long:
+              type: number
+        time:
+          type: string
+          example: "2023-02-08T15:41:04.626Z"
+        status:
+          type: boolean
+          example : true
+        measurements:
+          type: object
+          properties:
+            pre:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Pressure"
+                value:
+                  type: number
+                  example: 0.5
+                unit:
+                  type: string
+                  example: "hPa"
+                desc:
+                  type: string
+                  example: "Atm Pressure"
+    Live_Rain:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: 'best group ever'
+        location:
+          type: object
+          properties:
+            lat:
+              type: number
+            long:
+              type: number
+        time:
+          type: string
+          example: "2023-02-08T15:41:04.626Z"
+        status:
+          type: boolean
+          example : true
+        measurements:
+          type: object
+          properties:
+            rain:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Rainfall"
+                value:
+                  type: number
+                  example: 20
+                unit:
+                  type: string
+                  example: "mm/m²/h"
+                desc:
+                  type: string
+                  example: "Rainfall"
+    Live_WindS:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: 'best group ever'
+        location:
+          type: object
+          properties:
+            lat:
+              type: number
+            long:
+              type: number
+        time:
+          type: string
+          example: "2023-02-08T15:41:04.626Z"
+        status:
+          type: boolean
+          example : true
+        measurements:
+          type: object
+          properties:
+            wind_speed:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Wind Speed"
+                value:
+                  type: number
+                  example: 20
+                unit:
+                  type: string
+                  example: "Kts"
+                desc:
+                  type: string
+                  example: "Wind speed in knots"
+    Live_WindD:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: 'best group ever'
+        location:
+          type: object
+          properties:
+            lat:
+              type: number
+            long:
+              type: number
+        time:
+          type: string
+          example: "2023-02-08T15:41:04.626Z"
+        status:
+          type: boolean
+          example : true
+        measurements:
+          type: object
+          properties:
+            wind_dir:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Wind Direction"
+                value:
+                  type: number
+                  example: 120
+                unit:
+                  type: string
+                  example: "°"
+                desc:
+                  type: string
+                  example: "Wind direction in °, as in 360°"
+    Live_GPS:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: 'best group ever'
+        location:
+          type: object
+          properties:
+            lat:
+              type: number
+            long:
+              type: number
+        time:
+          type: string
+          example: "2023-02-08T15:41:04.626Z"
+        status:
+          type: boolean
+          example : true
+    Archive:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: 'best group ever'
+        location:
+          type: object
+          properties:
+            lat:
+              type: number
+            long:
+              type: number
+        measurements:
+          type: object
+          properties:
+            feature:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example : "feature name"
+                values:
+                  type: array
+                  items:
+                    type: number
+                    example: 3
+                  example: [2,5,98]
+                times:
+                  type: array
+                  items:
+                    type: string
+                    example: "2023-02-08T15:41:04.626Z"
+                  example: ["2023-02-08T15:41:04.626Z","2023-02-09T15:41:04.626Z"]
+                desc:
+                  type: string
+                  example: "feature description"
+                unit:
+                  type: string
+                  example: "feature unit"
+                
+        
+      xml:
+        name: customer
+    
+    
+  requestBodies:
+    Live:
+      description: Pet object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Live'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Live'
+    
