@@ -154,13 +154,16 @@ paths:
 
         '405':
           description: Invalid input
-  /archive/{feature}:
+  /archive/{period}/{feature}:
     get:
       tags:
         - Archive
-      summary: Get the values for the feature between the two parameters "start" and "stop"
-      description: Get the values for the feature between the two parameters "start" and "stop"
-      operationId: findPetsByStatus
+      summary: Get the values for a given period before a given date
+      description: 
+        The user provides a period (week, month, year) and will access the feature data for this period. 
+        The scale of the data depends on the period (week => every half day (14 values), month => every day (30 values), year => every week (52 values)). 
+        To access to older data, the user can provide a datetime parameter called endDatetime, it corresponds to the end of the recording. 
+        Example of url => "http://localhost:3000/archive/week/hum?endDatetime=2023-03-08T16:03:35.330Z"
       parameters:
         - name: feature
           in: path
@@ -169,31 +172,25 @@ paths:
             type: string
             enum: [lum,temp,hum,pre,rain,wind_speed,wind_dir]
           required: true
-        - in: query
-          name: start
+        - name: period
+          in: path
+          description: period of recording
           schema:
             type: string
-            example: "2023-02-08T15:41:04.626Z"
+            enum: [week,month,year]
           required: true
         - in: query
-          name: end
+          name: endDatetime
           schema:
             type: string
             example: "2023-02-09T15:41:04.626Z"
-          required: true
+          required: false
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Archive'          
-            application/xml:
-              schema:
-                type: array
-                items:
                   $ref: '#/components/schemas/Archive'
         '400':
           description: Invalid status value
@@ -356,21 +353,21 @@ components:
         measurements:
           type: object
           properties:
-            temp:
+            lum:
               type: object
               properties:
                 name:
                   type: string
-                  example: "Temperature"
+                  example: "Luminosity"
                 value:
                   type: number
-                  example: 25
+                  example: 2
                 unit:
                   type: string
-                  example: "C"
+                  example: "Lux"
                 desc:
                   type: string
-                  example: "Temperature"
+                  example: "Luminosity"
     Live_Temp:
       type: object
       properties:
@@ -660,12 +657,12 @@ components:
         measurements:
           type: object
           properties:
-            feature:
+            FEATURE_DIMINUTIVE:
               type: object
               properties:
                 name:
                   type: string
-                  example : "feature name"
+                  example : "feature name, don't forget to adapt the field FEATURE_DIMINUTIVE"
                 values:
                   type: array
                   items:
@@ -677,14 +674,16 @@ components:
                   items:
                     type: string
                     example: "2023-02-08T15:41:04.626Z"
-                  example: ["2023-02-08T15:41:04.626Z","2023-02-09T15:41:04.626Z"]
+                  example: ["2023-02-08T15:41:04.626Z","2023-02-09T15:41:04.626Z","2023-02-10T15:41:04.626Z"]
                 desc:
                   type: string
                   example: "feature description"
                 unit:
                   type: string
                   example: "feature unit"
-                
+        status:
+          type: boolean
+          example : true
         
       xml:
         name: customer
@@ -700,4 +699,4 @@ components:
         application/xml:
           schema:
             $ref: '#/components/schemas/Live'
-    
+

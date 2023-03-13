@@ -143,3 +143,7 @@ function getWindDLiveData() {
             return response.Live_WindD.properties.measurements.properties.wind_dir.properties.value.example;
         })
 }
+
+return response.location;
+        })
+}
