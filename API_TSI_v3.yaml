@@ -159,7 +159,11 @@ paths:
       tags:
         - Archive
       summary: Get the values for a given period before a given date
-      description: The user provides a period (week, month, year) and will access the feature data for this period. The scale of the data depends on the period (week => every half day, month => every day, year => every week). To access to older data, the user can provide a datetime parameter called endDatetime, it corresponds to the end of the recording. 
+      description: 
+        The user provides a period (week, month, year) and will access the feature data for this period. 
+        The scale of the data depends on the period (week => every half day (14 values), month => every day (30 values), year => every week (52 values)). 
+        To access to older data, the user can provide a datetime parameter called endDatetime, it corresponds to the end of the recording. 
+        Example of url => "http://localhost:3000/archive/week/hum?endDatetime=2023-03-08T16:03:35.330Z"
       parameters:
         - name: feature
           in: path
@@ -650,30 +654,7 @@ components:
               type: number
             long:
               type: number
-              
-              
         measurements:
-          type: object
-          properties:
-            wind_dir:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: "Wind Direction"
-                value:
-                  type: number
-                  example: 120
-                unit:
-                  type: string
-                  example: "°"
-                desc:
-                  type: string
-                  example: "Wind direction in °, as in 360°"
-              
-              
-              
-        measurements2:
           type: object
           properties:
             FEATURE_DIMINUTIVE:
@@ -718,3 +699,4 @@ components:
         application/xml:
           schema:
             $ref: '#/components/schemas/Live'
+
