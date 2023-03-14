@@ -81,7 +81,7 @@ router.get('/:period/:param', async function (req, res, next) {
                 unit: results[index].unit,
             }
         }
-        valeurs.measurements.values = value;
+        valeurs.measurements.values = parseFloat(value);
         valeurs.measurements.times = time;
     })
 
