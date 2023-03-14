@@ -116,7 +116,8 @@ gps.watch(path_gps).on('change', (event, path) => {
   });
 })
 console.log("rainnnn")
-rain.watch('path_rain').on('change', (event, path) => {
+rain.watch(path_rain).on('change', (event, path) => {
+  console.log(path_rain)
 
   fs.readFile(path_rain, 'utf8', (err, data) => {
     console.log(path_rain)
@@ -141,7 +142,7 @@ rain.watch('path_rain').on('change', (event, path) => {
       precision: 'ms',
     })
       .catch(error => {
-        console.error(`Error saving data to InfluxDB! ${error.stack}`)
+        console.error(`Error saving rain to InfluxDB! ${error.stack}`)
       });
   });
 })
