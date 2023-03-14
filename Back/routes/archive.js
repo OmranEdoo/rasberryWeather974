@@ -69,7 +69,7 @@ router.get('/:period/:param', async function (req, res, next) {
     }
 
     result = influx.query(
-        `SELECT * FROM ${param} WHERE time > '${period_date.toISOString()}' AND time < '${today.toISOString()}' `
+        `SELECT * FROM ${param} WHERE time > '${period_date.toISOString()}' AND time < '${today.toISOString() LIMIT 24}' `
     );
     await result.then(results => {
         for (let index = 0; index < results.length; index++) {
