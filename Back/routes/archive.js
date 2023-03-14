@@ -73,7 +73,7 @@ router.get('/:period/:param', async function (req, res, next) {
     );
     await result.then(results => {
         for (let index = 0; index < results.length; index++) {
-            value.push(results[index].value)
+            value.push(parseFloat(results[index].value))
             time.push(results[index].date)
             valeurs.measurements[param] = {
                 name: results[index].name,
@@ -81,7 +81,7 @@ router.get('/:period/:param', async function (req, res, next) {
                 unit: results[index].unit,
             }
         }
-        valeurs.measurements.values = parseFloat(value);
+        valeurs.measurements.values = value;
         valeurs.measurements.times = time;
     })
 
