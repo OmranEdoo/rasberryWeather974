@@ -1,10 +1,17 @@
 <template>
     <div class="containerColumn">
+        <p>test</p>
         <div class="containerRow">
+            <button :click="displayGraph('pre')">Precipitation</button>
+            <button :click="displayGraph('lum')">Luminosity</button>
+
             <canvas class="chart" id="chartPre"></canvas>
             <canvas class="chart" id="chartLum"></canvas>
         </div>
         <div class="containerRow">
+            <button :click="displayGraph('temp')">Temperature</button>
+            <button :click="displayGraph('hum')">Humidity</button>
+
             <canvas class="chart" id="chartTemp"></canvas>
             <canvas class="chart" id="chartHum"></canvas>
         </div>
@@ -19,6 +26,8 @@ import chartLum from '../js/chart/lum.js'
 import chartTemp from '../js/chart/temp.js'
 import chartHum from '../js/chart/hum.js'
 
+import { getArchiveData } from '../js/importer/archiveDataImporter.js'
+
 
 export default {
     name: 'GraphContainer',
@@ -27,7 +36,8 @@ export default {
             chartPre: chartPre,
             chartLum: chartLum,
             chartTemp: chartTemp,
-            chartHum: chartHum
+            chartHum: chartHum,
+            archiveData: getArchiveData,
         }
     },
     mounted() {
@@ -42,6 +52,12 @@ export default {
 
         const ctxHum = document.getElementById('chartHum');
         new Chart(ctxHum, this.chartHum);
+    },
+    methods: {
+        displayGraph(feature) {
+            const data = getArchiveData("week", feature);
+            console.log(data);
+        }
     }
 }
 

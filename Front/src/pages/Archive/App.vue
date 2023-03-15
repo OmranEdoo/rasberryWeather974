@@ -1,12 +1,14 @@
 <template>
     <div class="page">
         <NavBar actual-page="archive" />
+        <GraphContainer></GraphContainer>
         <FooterBar></FooterBar>
     </div>
 </template>
 
 <script>
 import NavBar from './../../components/NavBar.vue'
+import GraphContainer from './../../components/GraphContainer.vue'
 import FooterBar from './../../components/FooterBar.vue'
 
 
@@ -14,8 +16,8 @@ export default {
     name: 'ArchivePage',
     components: {
         NavBar,
-        FooterBar
-
+        FooterBar,
+        GraphContainer
     }
 }
 </script>
