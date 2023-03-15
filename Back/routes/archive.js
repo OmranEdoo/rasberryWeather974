@@ -81,8 +81,8 @@ router.get('/:period/:param', async function (req, res, next) {
                 unit: results[index].unit,
             }
         }
-        valeurs.measurements.param.values = value;
-        valeurs.measurements.param.times = time;
+        valeurs.measurements[param].values = value;
+        valeurs.measurements[param].times = time;
     })
 
     res.json(valeurs)

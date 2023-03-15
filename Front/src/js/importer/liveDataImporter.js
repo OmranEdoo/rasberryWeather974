@@ -1,5 +1,5 @@
 export const getLiveData = async function getLiveData() {
-    return fetch('http://piensg028:3000/live', {
+    return fetch('http://localhost:3000/live', {
         method: 'GET'
     })
         .then(response => response.json())
@@ -34,7 +34,7 @@ export const getLiveData = async function getLiveData() {
 }
 
 export const getLumLiveData = async function getLumLiveData() {
-    return fetch('http://piensg028:3000/live/lum', {
+    return fetch('http://localhost:3000/live/lum', {
         method: 'GET'
     })
         .then(response => response.json())
@@ -48,7 +48,8 @@ export const getLumLiveData = async function getLumLiveData() {
 }
 
 export const getHumLiveData = async function getHumLiveData() {
-    return fetch('http://piensg028:3000/live/hum', {
+    return fetch('http://localhost:3000/live/hum', {
+
         method: 'GET'
     })
         .then(response => response.json())
@@ -60,7 +61,7 @@ export const getHumLiveData = async function getHumLiveData() {
 }
 
 export const getPreLiveData = async function getTempLiveData() {
-    return fetch('http://piensg028:3000/live/pre', {
+    return fetch('http://localhost:3000/live/pre', {
         method: 'GET'
     })
         .then(response => response.json())
@@ -72,7 +73,7 @@ export const getPreLiveData = async function getTempLiveData() {
 }
 
 export const getTempLiveData = async function getPreLiveData() {
-    return fetch('http://piensg028:3000/live/temp', {
+    return fetch('http://localhost:3000/live/temp', {
         method: 'GET'
     })
         .then(response => response.json())
@@ -84,7 +85,7 @@ export const getTempLiveData = async function getPreLiveData() {
 }
 
 export const getRainLiveData = async function getRainLiveData() {
-    return fetch('http://piensg028:3000/live/rain', {
+    return fetch('http://localhost:3000/live/rain', {
         method: 'GET'
     })
         .then(response => response.json())
@@ -96,7 +97,7 @@ export const getRainLiveData = async function getRainLiveData() {
 }
 
 export const getWindSLiveData = async function getWindSLiveData() {
-    return fetch('http://piensg028:3000/live/windS', {
+    return fetch('http://localhost:3000/live/windS', {
         method: 'GET'
     })
         .then(response => response.json())
@@ -108,7 +109,7 @@ export const getWindSLiveData = async function getWindSLiveData() {
 }
 
 export const getWindDLiveData = async function getWindDLiveData() {
-    return fetch('http://piensg028:3000/live/windD', {
+    return fetch('http://localhost:3000/live/windD', {
         method: 'GET'
     })
         .then(response => response.json())
@@ -120,7 +121,7 @@ export const getWindDLiveData = async function getWindDLiveData() {
 }
 
 export const getGpsLiveData = async function getGpsLiveData() {
-    return fetch('http://piensg028:3000/live/gps', {
+    return fetch('http://localhost:3000/live/gps', {
         method: 'GET'
     })
         .then(response => response.json())
