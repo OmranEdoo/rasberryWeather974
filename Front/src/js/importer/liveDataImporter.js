@@ -1,4 +1,3 @@
-
 export const getLiveData = async function getLiveData() {
     return fetch('http://localhost:3000/mock', {
         method: 'GET'

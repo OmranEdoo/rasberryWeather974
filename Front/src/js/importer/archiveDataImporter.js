@@ -1,9 +1,9 @@
 function getArchiveData() {
-    fetch('http://localhost.com:3000', {
-        method: 'GET'/*,
+    fetch('path', {
+        method: 'GET',
         headers: {
             'Accept': 'application/json',
-        },*/
+        },
     })
         .then(response => response.json())
         .then(response => {
@@ -11,3 +11,5 @@ function getArchiveData() {
             return response.Archive.properties.measurements.properties.values.example;
         })
 }
+
+
