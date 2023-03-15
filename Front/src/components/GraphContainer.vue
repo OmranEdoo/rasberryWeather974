@@ -1,19 +1,21 @@
 <template>
     <div class="containerColumn">
-        <p>test</p>
         <div class="containerRow">
-            <button :click="displayGraph('pre')">Precipitation</button>
-            <button :click="displayGraph('lum')">Luminosity</button>
+            <div v-for="(value, key) in featureNames" :key="key">
+                <input type="checkbox" :value="key" v-model="features" @change="changeFeatures"><label for="">{{ value
+                }}</label>
 
-            <canvas class="chart" id="chartPre"></canvas>
-            <canvas class="chart" id="chartLum"></canvas>
+            </div>
         </div>
         <div class="containerRow">
-            <button :click="displayGraph('temp')">Temperature</button>
-            <button :click="displayGraph('hum')">Humidity</button>
-
-            <canvas class="chart" id="chartTemp"></canvas>
-            <canvas class="chart" id="chartHum"></canvas>
+            <select v-model="period" @change="changeFeatures">
+                <option v-for="periodName in periods" :value="periodName" :key="periodName">
+                    {{ periodName }}
+                </option>
+            </select>
+        </div>
+        <div id="chartContainer" class="containerRow">
+            <canvas v-for="feature in features" class="chart" :key="feature"></canvas>
         </div>
     </div>
 </template>
@@ -21,49 +23,61 @@
 <script>
 
 import Chart from 'chart.js'
-import chartPre from '../js/chart/pre.js'
-import chartLum from '../js/chart/lum.js'
-import chartTemp from '../js/chart/temp.js'
-import chartHum from '../js/chart/hum.js'
+import fillChartData from '../js/chart/chart.js'
 
 import { getArchiveData } from '../js/importer/archiveDataImporter.js'
 
 
 export default {
     name: 'GraphContainer',
+    components: {
+
+    },
     data() {
         return {
-            chartPre: chartPre,
-            chartLum: chartLum,
-            chartTemp: chartTemp,
-            chartHum: chartHum,
+            featureNames: {
+                "lum": "Luminosity",
+                "temp": "Temperature",
+                "hum": "Humidity",
+                "pre": "Precipitation",
+                "rain": "Rain",
+                "wind_speed": "Wind Speed",
+                "wind_dir": "Wind Direction",
+                "gps": "Gps"
+            },
+            periods: ["day", "week", "month"],
+            fillChartData: fillChartData,
             archiveData: getArchiveData,
+            period: "day",
+            features: [],
+            data: null,
         }
     },
     mounted() {
-        const ctxPre = document.getElementById('chartPre');
-        new Chart(ctxPre, this.chartPre);
 
-        const ctxLum = document.getElementById('chartLum');
-        new Chart(ctxLum, this.chartLum);
-
-        const ctxTemp = document.getElementById('chartTemp');
-        new Chart(ctxTemp, this.chartTemp);
-
-        const ctxHum = document.getElementById('chartHum');
-        new Chart(ctxHum, this.chartHum);
     },
     methods: {
-        displayGraph(feature) {
-            const data = getArchiveData("week", feature);
-            console.log(data);
+        changeFeatures() {
+            let index = 0;
+
+            this.features.forEach(feature => {
+                getArchiveData(this.period, feature).then(res => {
+                    const data = res;
+
+                    const ctx = document.getElementsByClassName('chart')[index];
+                    //const ctx = document.getElementById('chart');
+                    new Chart(ctx, this.fillChartData(data.times, data.values, this.featureNames[feature]));
+
+                    index += 1;
+                })
+            });
         }
     }
 }
 
 </script>
 
-<style>
+<style scoped>
 .containerColumn {
     display: flex;
     flex-direction: column;
@@ -75,8 +89,12 @@ export default {
 }
 
 .chart {
-    width: 50vw !important;
+    width: 48vw !important;
     height: min-content !important;
     font-weight: 100;
+}
+
+#chartContainer {
+    flex-wrap: wrap;
 }
 </style>
