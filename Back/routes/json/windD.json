@@ -1,0 +1,18 @@
+{
+    "id": 1,
+    "name": "best group ever",
+    "location": {
+        "lat": 0,
+        "long": 0
+    },
+    "time": "2023-02-08T15:41:04.626Z",
+    "status": true,
+    "measurements": {
+        "wind_dir": {
+            "name": "Wind Direction",
+            "value": 120,
+            "unit": "°",
+            "desc": "Wind direction in °, as in 360°"
+        }
+    }
+}

@@ -1,28 +1,27 @@
 <template>
   <MDBNavbar expand="lg" light bg="light" container>
-    <MDBNavbarBrand href="#">Brand</MDBNavbarBrand>
+    <MDBNavbarBrand href="#">RW 974</MDBNavbarBrand>
     <MDBNavbarToggler @click="collapse1 = !collapse1" target="#navbarSupportedContent"></MDBNavbarToggler>
     <MDBCollapse v-model="collapse1" id="navbarSupportedContent">
       <MDBNavbarNav class="mb-2 mb-lg-0">
-        <MDBNavbarItem to="#" active>
+        <MDBNavbarItem href="home" :disabled="actualPage == 'home'">
           Home
         </MDBNavbarItem>
-        <MDBNavbarItem href="#">
-          Link
+        <MDBNavbarItem href="about" :disabled="actualPage == 'about'">
+          About
+        </MDBNavbarItem>
+        <MDBNavbarItem href="#" onmousedown="window.scrollTo(0, document.body.scrollHeight);">
+          Contact
         </MDBNavbarItem>
         <MDBNavbarItem>
           <!-- Navbar dropdown -->
           <MDBDropdown class="nav-item" v-model="dropdown1">
-            <MDBDropdownToggle tag="a" class="nav-link" @click="dropdown1 = !dropdown1">Dropdown</MDBDropdownToggle>
+            <MDBDropdownToggle tag="a" class="nav-link" @click="dropdown1 = !dropdown1">Data</MDBDropdownToggle>
             <MDBDropdownMenu aria-labelledby="dropdownMenuButton">
-              <MDBDropdownItem href="#">Action</MDBDropdownItem>
-              <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
-              <MDBDropdownItem href="#">Something else here</MDBDropdownItem>
+              <MDBDropdownItem href="live" :disabled="actualPage == 'live'">Live</MDBDropdownItem>
+              <MDBDropdownItem href="archive" :disabled="actualPage == 'archive'">Archive</MDBDropdownItem>
             </MDBDropdownMenu>
           </MDBDropdown>
-        </MDBNavbarItem>
-        <MDBNavbarItem to="#" disabled>
-          Disabled
         </MDBNavbarItem>
       </MDBNavbarNav>
       <!-- Search form -->
@@ -66,9 +65,16 @@ export default {
     MDBDropdownMenu,
     MDBDropdownItem
   },
+  props: {
+    actualPage: String
+  },
+  mounted() {
+    console.log(this.actualPage);
+  },
   setup() {
     const collapse1 = ref(false);
     const dropdown1 = ref(false);
+    //const page = ref(props.actualPage);
     return {
       collapse1,
       dropdown1
