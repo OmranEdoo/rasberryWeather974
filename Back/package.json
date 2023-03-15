@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www"
+    "startprod": "node ./bin/www"
   },
   "dependencies": {
     "@drivetech/node-nmea": "^2.0.1",
