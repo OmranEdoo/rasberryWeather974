@@ -20,7 +20,9 @@ ensuite tu te mets sur ce git et tu le lances:
 		git clone https://github.com/OmranEdoo/rasberryWeather974.git
 ensuite t'ouvres ton projet sur VSC:
 là tu dois aller sur Back/WatchReadfile/createdata.js et tu changes les chemins (path_sensors..) au début au chemin relatif des 3 fichiers que t'as créé à l'étape 2  
-		cd Back/WatchReadfile
+		cd Back
+		npm install 
+		cd WatchReadfile
 		node createdata.js
 t'ouvres un nouveau terminal:
 		cd Back 
