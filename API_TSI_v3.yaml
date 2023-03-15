@@ -655,14 +655,19 @@ components:
               type: number
             long:
               type: number
+              
+              
         measurements:
           type: object
           properties:
+
             FEATURE_DIMINUTIVE:
+
               type: object
               properties:
                 name:
                   type: string
+
                   example : "feature name, don't forget to adapt the field FEATURE_DIMINUTIVE"
                 values:
                   type: array
