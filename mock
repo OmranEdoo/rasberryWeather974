@@ -1,0 +1,29 @@
+1. InfluxDB : 
+Ouvrir un terminal et exécuter: 
+		docker run -ti -d -p 8086:8086 -v influxdb:/var/lib/influxdb --name influxdb influxdb:1.8
+		docker exec -ti influxdb bash
+		influx
+		CREATE DATABASE weather
+
+2. Sur un nouveau terminal, exécuter :
+		mkdir /dev/shm/ 
+		cd /dev/shm/
+		touch rainCounter.log
+		touch gpsNmea
+		touch sensors
+		git clone https://gitlab.com/cedricici/fakesonde.git
+ensuite tu te mets sur ce git et tu le lances:
+		npm install 
+		npm start
+
+3. ensuite, tu clones le git de notre projet : 
+		git clone https://github.com/OmranEdoo/rasberryWeather974.git
+ensuite t'ouvres ton projet sur VSC:
+là tu dois aller sur Back/WatchReadfile/createdata.js et tu changes les chemins (path_sensors..) au début au chemin relatif des 3 fichiers que t'as créé à l'étape 2  
+		cd Back/WatchReadfile
+		node createdata.js
+t'ouvres un nouveau terminal:
+		cd Back 
+		npm start
+		
+et là c'est à toi de jouer :)		
