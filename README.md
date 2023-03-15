@@ -50,7 +50,7 @@ We chose to work with https://www.influxdata.com/ :
 
 Before running the application you must have docker and run the following line :
 ```
-docker run -ti -p 8086:8086 -v influxdb:/var/lib/influxdb --name influxdb influxdb:1.8
+docker run -ti -d -p 8086:8086 -v influxdb:/var/lib/influxdb --name influxdb influxdb:1.8
 ```
 Open a new terminal and run :
 ```
