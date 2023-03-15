@@ -49,6 +49,7 @@ export const getLumLiveData = async function getLumLiveData() {
 
 export const getHumLiveData = async function getHumLiveData() {
     return fetch('http://localhost:3000/live/hum', {
+
         method: 'GET'
     })
         .then(response => response.json())

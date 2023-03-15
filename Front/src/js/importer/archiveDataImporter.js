@@ -1,15 +1,14 @@
-function getArchiveData() {
-    fetch('path', {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-        },
+export const getArchiveData = async function getLumArchiveData(periode, feature) {
+    return fetch('http://piensg028:3000/archive/' + periode + '/' + feature, {
+        method: 'GET'
     })
         .then(response => response.json())
         .then(response => {
-            console.log(JSON.stringify(response))
-            return response.Archive.properties.measurements.properties.values.example;
-        })
-}
+            console.log(response)
 
+            return response.measurements.values;
+        }).catch((error) => {
+            console.log(error);
+        });
+}
 
