@@ -8,12 +8,14 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
     "bootstrap-vue": "^2.23.1",
     "chart.js": "^2.9.4",
     "core-js": "^3.8.3",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "leaflet": "^1.9.3",
     "mdb-vue-ui-kit": "^3.2.0",
     "mdbootstrap": "^4.20.0",
     "mongodb": "^5.0.1",

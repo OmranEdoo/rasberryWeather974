@@ -1,11 +1,9 @@
-export const getLiveData = async function getLiveData() {
-    return fetch('http://localhost:3000/live', {
+export const getAllLiveData = async function getAllLiveData(url) {
+    return fetch(url, { //'http://piensg028:3000/live'
         method: 'GET'
     })
         .then(response => response.json())
         .then(response => {
-            console.log("test");
-            console.log(JSON.stringify(response))
 
             const values = response.measurements;
 
@@ -33,101 +31,35 @@ export const getLiveData = async function getLiveData() {
         })
 }
 
-export const getLumLiveData = async function getLumLiveData() {
-    return fetch('http://localhost:3000/live/lum', {
+export const getLiveData = async function getLiveData(url, feature) {
+    return fetch(url + feature, {
         method: 'GET'
     })
         .then(response => response.json())
         .then(response => {
-            console.log(response)
 
-            return response.measurements.lum.value;
+            switch (feature) {
+                case 'lum':
+                    return response.measurements.lum;
+                case 'temp':
+                    return response.measurements.temp;
+                case 'hum':
+                    return response.measurements.hum;
+                case 'pre':
+                    return response.measurements.pre;
+                case 'rain':
+                    return response.measurements.rain;
+                case 'wind_speed':
+                    console.log(response)
+                    return response.measurements.wind_speed;
+                case 'wind_dir':
+                    return response.measurements.wind_dir;
+                case 'gps':
+                    return response.location;
+                default:
+                    return "";
+            }
         }).catch((error) => {
             console.log(error);
         });
-}
-
-export const getHumLiveData = async function getHumLiveData() {
-    return fetch('http://localhost:3000/live/hum', {
-
-        method: 'GET'
-    })
-        .then(response => response.json())
-        .then(response => {
-            console.log(JSON.stringify(response))
-
-            return response.measurements.hum.value;
-        })
-}
-
-export const getPreLiveData = async function getTempLiveData() {
-    return fetch('http://localhost:3000/live/pre', {
-        method: 'GET'
-    })
-        .then(response => response.json())
-        .then(response => {
-            console.log(JSON.stringify(response))
-
-            return response.measurements.pre.value;
-        })
-}
-
-export const getTempLiveData = async function getPreLiveData() {
-    return fetch('http://localhost:3000/live/temp', {
-        method: 'GET'
-    })
-        .then(response => response.json())
-        .then(response => {
-            console.log(JSON.stringify(response))
-
-            return response.measurements.temp.value;
-        })
-}
-
-export const getRainLiveData = async function getRainLiveData() {
-    return fetch('http://localhost:3000/live/rain', {
-        method: 'GET'
-    })
-        .then(response => response.json())
-        .then(response => {
-            console.log(JSON.stringify(response))
-
-            return response.measurements.rain.value;
-        })
-}
-
-export const getWindSLiveData = async function getWindSLiveData() {
-    return fetch('http://localhost:3000/live/windS', {
-        method: 'GET'
-    })
-        .then(response => response.json())
-        .then(response => {
-            console.log(JSON.stringify(response))
-
-            return response.measurements.wind_speed.value;
-        })
-}
-
-export const getWindDLiveData = async function getWindDLiveData() {
-    return fetch('http://localhost:3000/live/windD', {
-        method: 'GET'
-    })
-        .then(response => response.json())
-        .then(response => {
-            console.log(JSON.stringify(response))
-
-            return response.measurements.wind_dir.value;
-        })
-}
-
-export const getGpsLiveData = async function getGpsLiveData() {
-    return fetch('http://localhost:3000/live/gps', {
-        method: 'GET'
-    })
-        .then(response => response.json())
-        .then(response => {
-            console.log(JSON.stringify(response))
-
-            return response.location;
-        })
 }
