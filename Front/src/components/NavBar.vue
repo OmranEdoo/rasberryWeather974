@@ -24,20 +24,12 @@
           </MDBDropdown>
         </MDBNavbarItem>
       </MDBNavbarNav>
-      <!-- Search form -->
-      <form class="d-flex input-group w-auto">
-        <input type="search" class="form-control" placeholder="Type query" aria-label="Search" />
-        <MDBBtn outline="primary">
-          Search
-        </MDBBtn>
-      </form>
     </MDBCollapse>
   </MDBNavbar>
 </template>
 
 <script>
 import {
-  MDBBtn,
   MDBNavbar,
   MDBNavbarToggler,
   MDBNavbarBrand,
@@ -53,7 +45,6 @@ import { ref } from 'vue';
 
 export default {
   components: {
-    MDBBtn,
     MDBNavbar,
     MDBNavbarToggler,
     MDBNavbarBrand,

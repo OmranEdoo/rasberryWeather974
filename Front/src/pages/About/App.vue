@@ -42,9 +42,10 @@
                         </div>
                     </div>
                     We are both from the ENSG School were we specialize in Information Science Technology.
-                    <h6>Lina :</h6> I am ...
+                    <h6>Lina :</h6> I love coding 🖥️ traveling ✈️ and talking 🎤 you can check my networks down below,
+                    feel free to contact me !
                     <h6>Omran :</h6> Passionated with programming, cars, chess and a lot of other stuff, you can check
-                    my portefolio website if you want to discover more about me !
+                    my portefolio website (in construction) if you want to discover more about me !
                     <a href="https://omranedoo.vercel.app">omranedoo.vercel.app</a>
                 </div>
             </div>

@@ -2,12 +2,13 @@
     <!-- Footer -->
     <MDBFooter :text="['center', 'lg-start', 'muted']">
         <!-- Section: Social media -->
-        <section class="
-              d-flex
-              justify-content-center justify-content-lg-between
-              p-4
-              border-bottom
-            ">
+        <section
+            class="
+                                                                                                                                                      d-flex
+                                                                                                                                                      justify-content-center justify-content-lg-between
+                                                                                                                                                      p-4
+                                                                                                                                                      border-bottom
+                                                                                                                                                    ">
             <!-- Left -->
             <div class="me-5 d-none d-lg-block">
                 <span>Get connected with us on social networks:</span>
@@ -46,7 +47,7 @@
                     <MDBCol md="3" lg="4" xl="3" class="mx-auto mb-4">
                         <!-- Content -->
                         <h6 class="text-uppercase fw-bold mb-4">
-                            <i class="fas fa-gem me-3"></i>Company name
+                            <i class="fas fa-gem me-3"></i>RASBERRY WEATHER 974
                         </h6>
                         <p>
                             Here you can use rows and columns to organize your footer
@@ -58,18 +59,18 @@
                     <!-- Grid column -->
                     <MDBCol md="2" lg="2" xl="2" class="mx-auto mb-4">
                         <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4">Products</h6>
+                        <h6 class="text-uppercase fw-bold mb-4">Stack</h6>
                         <p>
-                            <a href="#!" class="text-reset">Angular</a>
+                            <a href="https://vuejs.org/" class="text-reset">Vue</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">React</a>
+                            <a href="https://www.influxdata.com/" class="text-reset">InfluxDB</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">Vue</a>
+                            <a href="https://getbootstrap.com/" class="text-reset">Bootstrap</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">Laravel</a>
+                            <a href="https://expressjs.com/fr/" class="text-reset">Express JS</a>
                         </p>
                     </MDBCol>
                     <!-- Grid column -->
@@ -96,18 +97,35 @@
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
                         <p>
-                            <i class="fas fa-home me-3"></i> New York, NY 10012, US
+                            <i class="fas fa-home me-3"></i> Champs-sur-Marne, France
                         </p>
-                        <p>
-                            <i class="fas fa-envelope me-3"></i>
-                            info@example.com
-                        </p>
-                        <p>
-                            <MDBIcon icon="phone" class="me-3" /> + 01 234 567 88
-                        </p>
-                        <p>
-                            <MDBIcon icon="print" class="me-3" /> + 01 234 567 89
-                        </p>
+                        <div class="containerRow">
+                            <i class="fas fa-at"></i>
+
+                            <p style="text-align: center;">
+                                linasaba.18@gmail.com
+                                omranedoo@gmail.com
+                            </p>
+                        </div>
+                        <div class="containerRow">
+                            <p>
+                                <MDBIcon icon="phone" class="me-3" /> + 01 234 567 88
+                            </p>
+                        </div>
+                        <div class="containerRow">
+                            <p>
+                                <i class="fab fa-linkedin"></i>
+                                <a class="margL" href="https://www.linkedin.com/in/lina-s-59678a157/">Lina</a>
+                                <br>
+                                <a class="margL" href="https://www.linkedin.com/in/omran-edoo-6a170022a">Omran</a>
+                            </p>
+                            <p>
+                                <i class="fab fa-github"></i>
+                                <a class="margL" href="https://github.com/LinaSaba">Lina</a>
+                                <br>
+                                <a class="margL" href="https://github.com/OmranEdoo">Omran</a>
+                            </p>
+                        </div>
                     </MDBCol>
                     <!-- Grid column -->
                 </MDBRow>
@@ -144,3 +162,15 @@ export default {
     },
 };
 </script>
+
+<style>
+.margL {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.containerRow {
+    display: flex;
+    flex-direction: row;
+}
+</style>
