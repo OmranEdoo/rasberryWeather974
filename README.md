@@ -112,12 +112,14 @@ there you have to go to Back/WatchReadfile/createdata.js and change the paths (p
 ```cd Back
 npm install 
 cd WatchReadfile
-node createdata.js```
+node createdata.js
+```
 
 Open a new terminal and run :
 
 ```cd .. 
-npm start```
+npm start
+```
 
 
 3. Deploy our API and dataLoader on the rasberry :
