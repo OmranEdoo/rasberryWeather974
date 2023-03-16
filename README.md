@@ -98,20 +98,25 @@ touch gpsNmea
 touch sensors
 git clone https://gitlab.com/cedricici/fakesonde.git
 ```
+
 Next, you open the project and execute : 
+
 ```npm install 
 npm start
 git clone https://github.com/OmranEdoo/rasberryWeather974.git
 ```
 
 then you open your project on VisualStudioCode:
-there you have to go to Back/WatchReadfile/createdata.js and change the paths (path_sensors..) at the beginning to the relative path of the 3 files you created in the beginning of this step
+there you have to go to Back/WatchReadfile/createdata.js and change the paths (path_sensors..) at the beginning to the relative path of the 3 files you created in the beginning of this step :
+
 ```cd Back
 npm install 
 cd WatchReadfile
 node createdata.js```
+
 Open a new terminal and run :
-```	cd Back 
+
+```cd .. 
 npm start```
 
 
