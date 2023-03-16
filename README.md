@@ -45,13 +45,31 @@ In a browser, open localhost:8080/
 
 To use the mock server, run the mock server on localhost:3000, that will be explained in the mock part.
 
-In order to visualize the website on (http://piensg030:8080), the front vue project has been put in a service following the command lines : 
+In order to visualize the website on (http://piensg030:8080), the front vue project has been put in a service following the command lines for the SystemD: 
+```
+cat << 'EOF' | sudo tee /etc/systemd/system/FrontService.service
+[Unit]
+Description=weather fake data generator
+
+[Service]
+WorkingDirectory=/home/pi/rasberryWeather974/Front
+ExecStart=/usr/bin/npm run dev
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+Next we start our FrontService by running :
 ```
 sudo systemctl status FrontRasberry (#to get its status)
 sudo systemctl start FrontRasberry (#to start it)
 sudo systemctl stop FrontRasberry (#to stop it)
 sudo systemctl restart FrontRasberry (#to restart)
 sudo systemctl enable FrontRasberry (#to add it at system start-up)
+```
+We also add : 
+```
+sudo systemctl daemon-reload (#to rerun all generators)
 ```
 
 For live and archive:
@@ -97,8 +115,21 @@ Open a new terminal and run :
 		npm start```
 
 
-2. Install nodemon for restarting the node application when file changes
- ```   npm install --save-dev nodemon```
+3. Deploy our API and dataLoader on the rasberry :
+dataLoader
+```
+cat << 'EOF' | sudo tee /etc/systemd/system/data.service
+[Unit]
+Description=weather fake data generator
+
+[Service]
+WorkingDirectory=/home/pi/rasberryWeather974/Back/
+ExecStart=/usr/bin/npm run dev
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
 
 ### SSH setup
 
