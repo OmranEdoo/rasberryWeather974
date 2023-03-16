@@ -49,7 +49,7 @@ In order to visualize the website on (http://piensg030:8080), the front vue proj
 ```
 cat << 'EOF' | sudo tee /etc/systemd/system/FrontService.service
 [Unit]
-Description=weather fake data generator
+Description=Front rasberryWeather974
 
 [Service]
 WorkingDirectory=/home/pi/rasberryWeather974/Front
@@ -123,8 +123,23 @@ cat << 'EOF' | sudo tee /etc/systemd/system/data.service
 Description=weather fake data generator
 
 [Service]
-WorkingDirectory=/home/pi/rasberryWeather974/Back/
-ExecStart=/usr/bin/npm run dev
+WorkingDirectory=/home/pi/rasberryWeather974/Back/WatchReadfile
+ExecStart=/usr/bin/node createdata.js
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+
+API
+```
+cat << 'EOF' | sudo tee /etc/systemd/system/rasberry.service
+[Unit]
+Description=rasberry Back service
+
+[Service]
+WorkingDirectory=/home/pi/rasberryWeather974/Back
+ExecStart=/usr/bin/npm start
 
 [Install]
 WantedBy=multi-user.target
@@ -150,52 +165,3 @@ then, connect using
 ```
 ssh pi@piensg030
 ```
-
-
-## DataBase setup
-We chose to work with https://www.influxdata.com/ :
-
-Before running the application you must have docker and run the following line :
-```
-
-docker run -ti -d -p 8086:8086 -v influxdb:/var/lib/influxdb --name influxdb influxdb:1.8
-
-```
-Open a new terminal and run :
-```
-docker exec -ti influxdb bash
-```
-# You are in root@81ae2e0ca5f7:/#
-```
-influx
-```
-# You are now in influx
-```
-CREATE DATABASE weather
-```
-
-
-
-
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
