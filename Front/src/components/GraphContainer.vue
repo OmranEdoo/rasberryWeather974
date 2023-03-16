@@ -5,6 +5,7 @@
                 <input type="radio" :value="value" v-model="url" @click="changeFeatures" />
                 <label style="margin-left: 10px;" for="">{{ key }}</label>
             </div>
+            <MDBBtn color="primary">Compare</MDBBtn>
         </div>
         <div class="boxContainer containerRow margBottom">
             <div v-for="(value, key) in featureNames" :key="key">
@@ -28,6 +29,7 @@
 </template>
 
 <script>
+import { MDBBtn } from "mdb-vue-ui-kit";
 
 import Chart from 'chart.js'
 import fillChartData from '../js/chart/chart.js'
@@ -39,7 +41,8 @@ import MapContainer from './MapContainer.vue'
 export default {
     name: 'GraphContainer',
     components: {
-        MapContainer
+        MapContainer,
+        MDBBtn
     },
     data() {
         return {
@@ -96,12 +99,22 @@ export default {
 
                         const ctx = document.getElementsByClassName('chart')[index];
                         //const ctx = document.getElementById('chart');
-                        new Chart(ctx, this.fillChartData(data.times, data.values, this.featureNames[feature]));
+                        if (this.period == "day") {
+                            new Chart(ctx, this.fillChartData(data.times.map(time => this.getHour(time)), data.values, this.featureNames[feature]));
+                        } else {
+                            new Chart(ctx, this.fillChartData(data.times.map(time => this.getDate(time)), data.values, this.featureNames[feature]));
+                        }
 
                         index += 1;
                     })
                 }
             });
+        },
+        getHour(time) {
+            return time.split('T')[1].split('.')[0];
+        },
+        getDate(time) {
+            return time.split('T')[0];
         }
     }
 }
