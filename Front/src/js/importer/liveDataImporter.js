@@ -1,12 +1,10 @@
-export const getLiveData = async function getLiveData() {
-    return fetch('http://piensg028:3000/live', {
+export const getAllLiveData = async function getAllLiveData(url) {
+    return fetch(url, { //'http://piensg028:3000/live'
         method: 'GET'
     })
         .then(response => response.json())
         .then(response => {
-            console.log("test");
-            console.log(JSON.stringify(response))
-
+            
             const values = response.measurements;
 
             const lum = values.lum.value;
@@ -33,100 +31,33 @@ export const getLiveData = async function getLiveData() {
         })
 }
 
-export const getLumLiveData = async function getLumLiveData() {
-    return fetch('http://piensg028:3000/live/lum', {
+export const getLiveData = async function getLiveData(url, feature) {
+    return fetch(url + feature, {
         method: 'GET'
     })
         .then(response => response.json())
         .then(response => {
-            console.log(response)
 
-            return response.measurements.lum.value;
+            switch (feature) {
+                case 'lum':
+                    return response.measurements.lum.value;
+                case 'temp':
+                    return response.measurements.temp.value;
+                case 'hum':
+                    return response.measurements.hum.value;
+                case 'pre':
+                    return response.measurements.pre.value;
+                case 'windS':
+                    return response.measurements.wind_speed.value;
+                case 'windD':
+                    return response.measurements.wind_dir.value;
+                case 'gps':
+                    return response.location;
+                default:
+                    return "";
+            }
         }).catch((error) => {
             console.log(error);
         });
 }
 
-export const getHumLiveData = async function getHumLiveData() {
-    return fetch('http://piensg028:3000/live/hum', {
-        method: 'GET'
-    })
-        .then(response => response.json())
-        .then(response => {
-            console.log(JSON.stringify(response))
-
-            return response.measurements.hum.value;
-        })
-}
-
-export const getPreLiveData = async function getTempLiveData() {
-    return fetch('http://piensg028:3000/live/pre', {
-        method: 'GET'
-    })
-        .then(response => response.json())
-        .then(response => {
-            console.log(JSON.stringify(response))
-
-            return response.measurements.pre.value;
-        })
-}
-
-export const getTempLiveData = async function getPreLiveData() {
-    return fetch('http://piensg028:3000/live/temp', {
-        method: 'GET'
-    })
-        .then(response => response.json())
-        .then(response => {
-            console.log(JSON.stringify(response))
-
-            return response.measurements.temp.value;
-        })
-}
-
-export const getRainLiveData = async function getRainLiveData() {
-    return fetch('http://piensg028:3000/live/rain', {
-        method: 'GET'
-    })
-        .then(response => response.json())
-        .then(response => {
-            console.log(JSON.stringify(response))
-
-            return response.measurements.rain.value;
-        })
-}
-
-export const getWindSLiveData = async function getWindSLiveData() {
-    return fetch('http://piensg028:3000/live/windS', {
-        method: 'GET'
-    })
-        .then(response => response.json())
-        .then(response => {
-            console.log(JSON.stringify(response))
-
-            return response.measurements.wind_speed.value;
-        })
-}
-
-export const getWindDLiveData = async function getWindDLiveData() {
-    return fetch('http://piensg028:3000/live/windD', {
-        method: 'GET'
-    })
-        .then(response => response.json())
-        .then(response => {
-            console.log(JSON.stringify(response))
-
-            return response.measurements.wind_dir.value;
-        })
-}
-
-export const getGpsLiveData = async function getGpsLiveData() {
-    return fetch('http://piensg028:3000/live/gps', {
-        method: 'GET'
-    })
-        .then(response => response.json())
-        .then(response => {
-            console.log(JSON.stringify(response))
-
-            return response.location;
-        })
-}
