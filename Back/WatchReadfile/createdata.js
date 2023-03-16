@@ -4,9 +4,9 @@ const gps = require('chokidar');
 const rain = require('chokidar');
 const influx = new Influx.InfluxDB('http://localhost:8086/weather')
 const nmea = require('@drivetech/node-nmea');
-const path_sensors = "/dev/shm/sensors";
-const path_gps = "/dev/shm/gpsNmea";
-const path_rain = "/dev/shm/rainCounter.log";
+const path_sensors = "/home/formation/Documents/LinaTSI/01.JS/dev/shm/sensors";
+const path_gps = "/home/formation/Documents/LinaTSI/01.JS/dev/shm/gpsNmea";
+const path_rain = "/home/formation/Documents/LinaTSI/01.JS/dev/shm/rainCounter.log";
 
 // Create a table in InfluxDB
 influx.getDatabaseNames()
@@ -25,49 +25,55 @@ influx.getDatabaseNames()
           {
             measurement: 'temp',
             fields: {
-              unit: dataJson.measure[0].unit,
-              value: dataJson.measure[0].value,
               name: dataJson.measure[0].name,
+              desc: dataJson.measure[0].desc,
+              unit: dataJson.measure[0].unit,
+              value: parseFloat(dataJson.measure[0].value),
               date: dataJson.date
             },
           }, {
             measurement: 'pre',
             fields: {
-              unit: dataJson.measure[1].unit,
-              value: dataJson.measure[1].value,
               name: dataJson.measure[1].name,
+              desc: dataJson.measure[1].desc,
+              unit: dataJson.measure[1].unit,
+              value: parseFloat(dataJson.measure[1].value),
               date: dataJson.date
             },
           }, {
             measurement: 'hum',
             fields: {
-              unit: dataJson.measure[2].unit,
-              value: dataJson.measure[2].value,
               name: dataJson.measure[2].name,
+              desc: dataJson.measure[2].desc,
+              unit: dataJson.measure[2].unit,
+              value: parseFloat(dataJson.measure[2].value),
               date: dataJson.date
             },
           }, {
             measurement: 'lum',
             fields: {
-              unit: dataJson.measure[3].unit,
-              value: dataJson.measure[3].value,
               name: dataJson.measure[3].name,
+              desc: dataJson.measure[3].desc,
+              unit: dataJson.measure[3].unit,
+              value: parseFloat(dataJson.measure[3].value),
               date: dataJson.date
             },
           }, {
             measurement: 'wind_dir',
             fields: {
-              unit: dataJson.measure[4].unit,
-              value: dataJson.measure[4].value,
               name: dataJson.measure[4].name,
+              desc: dataJson.measure[4].desc,
+              unit: dataJson.measure[4].unit,
+              value: parseFloat(dataJson.measure[4].value),
               date: dataJson.date
             },
           }, {
             measurement: 'wind_speed',
             fields: {
-              unit: dataJson.measure[5].unit,
-              value: dataJson.measure[5].value,
               name: dataJson.measure[5].name,
+              desc: dataJson.measure[5].desc,
+              unit: dataJson.measure[5].unit,
+              value: parseFloat(dataJson.measure[5].value),
               date: dataJson.date
             },
           }
