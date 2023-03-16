@@ -63,4 +63,3 @@ export const getLiveData = async function getLiveData(url, feature) {
             console.log(error);
         });
 }
-
