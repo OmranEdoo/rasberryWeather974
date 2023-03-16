@@ -47,7 +47,7 @@ To use the mock server, run the mock server on localhost:3000, that will be expl
 
 In order to visualize the website on (http://piensg030:8080), the front vue project has been put in a service following the command lines for the SystemD: 
 ```
-cat << 'EOF' | sudo tee /etc/systemd/system/FrontService.service
+cat << 'EOF' | sudo tee /etc/systemd/system/front_service.service
 [Unit]
 Description=Front rasberryWeather974
 
@@ -59,13 +59,13 @@ ExecStart=/usr/bin/npm run dev
 WantedBy=multi-user.target
 EOF
 ```
-Next we start our FrontService by running :
+Next we start our front_service.service by running :
 ```
-sudo systemctl status FrontRasberry (#to get its status)
-sudo systemctl start FrontRasberry (#to start it)
-sudo systemctl stop FrontRasberry (#to stop it)
-sudo systemctl restart FrontRasberry (#to restart)
-sudo systemctl enable FrontRasberry (#to add it at system start-up)
+sudo systemctl status SERVICE (#to get its status)
+sudo systemctl start SERVICE (#to start it)
+sudo systemctl stop SERVICE (#to stop it)
+sudo systemctl restart SERVICE (#to restart)
+sudo systemctl enable SERVICE (#to add it at system start-up)
 ```
 We also add : 
 ```
@@ -87,6 +87,7 @@ For live and archive:
 
 
 You now have the database for the project. But, the database is empty and to fulfill it you just have to run the following lines : (pre-requies having node)
+
 2. Fill the database, Mock server : 
 Open a new terminal and run :
 
@@ -96,13 +97,14 @@ Open a new terminal and run :
 		touch gpsNmea
 		touch sensors
 		git clone https://gitlab.com/cedricici/fakesonde.git
-        ```
+```
 Next, you open the project and execute : 
 ```
 		npm install 
 		npm start
+        git clone https://github.com/OmranEdoo/rasberryWeather974.git
 ```
-```git clone https://github.com/OmranEdoo/rasberryWeather974.git```
+
 then you open your project on VisualStudioCode:
 there you have to go to Back/WatchReadfile/createdata.js and change the paths (path_sensors..) at the beginning to the relative path of the 3 files you created in the beginning of this step
 ```		cd Back
