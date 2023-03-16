@@ -91,30 +91,28 @@ You now have the database for the project. But, the database is empty and to ful
 2. Fill the database, Mock server : 
 Open a new terminal and run :
 
-```     mkdir /dev/shm/ 
-		cd /dev/shm/
-		touch rainCounter.log
-		touch gpsNmea
-		touch sensors
-		git clone https://gitlab.com/cedricici/fakesonde.git
+```mkdir /dev/shm/ 
+cd /dev/shm/
+touch rainCounter.log
+touch gpsNmea
+touch sensors
+git clone https://gitlab.com/cedricici/fakesonde.git
 ```
 Next, you open the project and execute : 
-```
-		npm install 
-		npm start
-        git clone https://github.com/OmranEdoo/rasberryWeather974.git
+```npm install 
+npm start
+git clone https://github.com/OmranEdoo/rasberryWeather974.git
 ```
 
 then you open your project on VisualStudioCode:
 there you have to go to Back/WatchReadfile/createdata.js and change the paths (path_sensors..) at the beginning to the relative path of the 3 files you created in the beginning of this step
-```		cd Back
-		npm install 
-		cd WatchReadfile
-		node createdata.js
-        ```
+```cd Back
+npm install 
+cd WatchReadfile
+node createdata.js```
 Open a new terminal and run :
-	```	cd Back 
-		npm start```
+```	cd Back 
+npm start```
 
 
 3. Deploy our API and dataLoader on the rasberry :
