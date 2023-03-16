@@ -18,10 +18,12 @@
                 </option>
             </select>
         </div>
-        <div id="chartContainer" class="containerRow">
+        <div class="center" v-if="isMap">
+            <MapContainer :coordinates="gps"></MapContainer>
+        </div>
+        <div id="chartContainer" class="containerRow" v-else>
             <canvas v-for="feature in features" class="chart" :key="feature"></canvas>
         </div>
-        <MapContainer v-if="isMap" :coordinates="gps"></MapContainer>
     </div>
 </template>
 
@@ -115,6 +117,13 @@ export default {
 .containerRow {
     display: flex;
     flex-direction: row;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
 }
 
 .chart {
