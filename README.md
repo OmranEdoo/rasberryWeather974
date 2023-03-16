@@ -35,7 +35,7 @@ git clone https://github.com/OmranEdoo/rasberryWeather974.git
 npm install -g @vue/cli  
 ```
 In the project folder:
-```cmd
+```
 cd Front 
 npm install 
 npm run serve 
@@ -78,12 +78,14 @@ For live and archive:
 
 ### Server : 
 1. Install InfluxDB : 
-``` docker run -ti -d -p 8086:8086 -v influxdb:/var/lib/influxdb --name influxdb influxdb:1.8```
-		```docker exec -ti influxdb bash
-        # You are in root@81ae2e0ca5f7:/#
-        influx
-        # You are now in influx
-        CREATE DATABASE weather```
+``` 
+docker run -ti -d -p 8086:8086 -v influxdb:/var/lib/influxdb --name influxdb influxdb:1.8
+docker exec -ti influxdb bash
+# You are in root@81ae2e0ca5f7:/#
+influx
+# You are now in influx
+CREATE DATABASE weather
+```
 
 
 You now have the database for the project. But, the database is empty and to fulfill it you just have to run the following lines : (pre-requies having node)
@@ -91,7 +93,8 @@ You now have the database for the project. But, the database is empty and to ful
 2. Fill the database, Mock server : 
 Open a new terminal and run :
 
-```mkdir /dev/shm/ 
+```
+mkdir /dev/shm/ 
 cd /dev/shm/
 touch rainCounter.log
 touch gpsNmea
@@ -101,7 +104,8 @@ git clone https://gitlab.com/cedricici/fakesonde.git
 
 Next, you open the project and execute : 
 
-```npm install 
+```
+npm install 
 npm start
 git clone https://github.com/OmranEdoo/rasberryWeather974.git
 ```
@@ -109,7 +113,8 @@ git clone https://github.com/OmranEdoo/rasberryWeather974.git
 then you open your project on VisualStudioCode:
 there you have to go to Back/WatchReadfile/createdata.js and change the paths (path_sensors..) at the beginning to the relative path of the 3 files you created in the beginning of this step :
 
-```cd Back
+```
+cd Back
 npm install 
 cd WatchReadfile
 node createdata.js
@@ -117,7 +122,8 @@ node createdata.js
 
 Open a new terminal and run :
 
-```cd .. 
+```
+cd .. 
 npm start
 ```
 
@@ -163,10 +169,14 @@ ssh pi@piensg030
 ```
 yes, next password is 'pipo'
 
-```exit```
+```
+exit
+```
 copy ssh public key to the server 
 
-```ssh-copy-id -i ~/.ssh/id_rsa pi@piensg030```
+```
+ssh-copy-id -i ~/.ssh/id_rsa pi@piensg030
+```
 
 then, connect using 
 ```
