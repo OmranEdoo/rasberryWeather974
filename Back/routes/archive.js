@@ -51,6 +51,13 @@ router.get('/:period/:param', async function (req, res, next) {
         measurements: {}
 
     }
+
+    valeurs.measurements[param] = {
+        name: results[index].name,
+        desc: results[index].name,
+        unit: results[index].unit,
+    }
+    
     let allValue = [];
     let allTime = [];
     let value = [];
@@ -61,22 +68,29 @@ router.get('/:period/:param', async function (req, res, next) {
     let period_date = new Date();
     let step;
     let stepping;
-    let a = new Date();
     if (period == "day") {
         console.log("------day case------");
         period_date.setHours(endDatetime.getHours() - 24);
         console.log("date_day : ", period_date);
         stepping = 24;
+        let a = period_date;
         for (let i = 1; i < stepping+1; i++){
             console.log(i)
-            a.setHours((period_date.getHours()+i)%24);
+            console.log("date_dayà : ", period_date);
+            console.log("AA",a)
+            a.setHours(a.getHours()+1);
             console.log("EUH",a)
-            console.log("EUHKFGJNJJKER",(period_date.getHours()+i)%24)
             result = influx.query(
-                `SELECT * FROM ${param} WHERE time > '${period_date.toISOString()}' AND time < '${a.toISOString()}'`
+                `SELECT mean(value) as mean FROM ${param} WHERE time > '${period_date.toISOString()}' AND time < '${a.toISOString()}'`
             );
-            period_date = a;
+            await result.then(mean=>{
+                allValue.push(mean);
+                allTime.push(period_date)
+            })
         }
+        valeurs.measurements[param].values = allValue;
+        valeurs.measurements[param].times = allTime;
+        
     }
     else if (period == "week") {
         console.log("------week case------");
@@ -104,29 +118,21 @@ router.get('/:period/:param', async function (req, res, next) {
     }
     
     
-    await result.then(results => {
-        for (let index = 0; index < results.length; index++) {
-            allValue.push(parseFloat(results[index].value))
-            allTime.push(results[index].date)
-            valeurs.measurements[param] = {
-                name: results[index].name,
-                desc: results[index].name,
-                unit: results[index].unit,
-            }
-        }
-        
-            // if (time>time[i]+step && time<time[i*stepping]+step){
-            //     allTime.foreach(r=>{
-            //         L.push(r);
-            //     }
-            //     )
-            // }
-            // value.push(math.mean(L))
-            
-        
-        valeurs.measurements[param].values = value;
-        valeurs.measurements[param].times = time;
-    })
+    // await result.then(results => {
+    //     for (let index = 0; index < results.length; index++) {
+    //         console.log("VALEUR",results[index])
+    //         // allValue.push(parseFloat(results[index].value))
+    //         // allTime.push(results[index].date)
+    //         // valeurs.measurements[param] = {
+    //         //     name: results[index].name,
+    //         //     desc: results[index].name,
+    //         //     unit: results[index].unit,
+    //         // }
+    //     }
+                
+    //     // 
+    // })
+    
 
     res.json(valeurs)
 }

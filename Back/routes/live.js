@@ -37,8 +37,8 @@ router.get('/', async function (req, res, next) {
     id: 30,
     name: 'RaspberryWeather974',
     location: {
-      latitude: coord[0],
-      longitude: coord[1]
+      latitude: coord[1],
+      longitude: coord[0]
     },
     status: 400,
     time: 0,
