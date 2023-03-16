@@ -57,9 +57,9 @@ router.get('/', async function (req, res, next) {
           name: results[index].name,
           value: parseFloat(results[index].value),
           unit: results[index].unit,
-          desc: results[index].name
+          desc: results[index].desc
         }
-        console.log("valeurs : ", valeurs)
+        console.log("valeurs : ", results[index])
         valeurs.time = results[index].date
       }
       console.log("valeurs : ", valeurs)
@@ -112,7 +112,7 @@ router.get('/:measure', async function (req, res, next) {
             name: results[index].name,
             value: parseFloat(results[index].value),
             unit: results[index].unit,
-            desc: results[index].name
+            desc: results[index].desc
           }
         }
       }

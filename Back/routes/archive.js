@@ -12,6 +12,7 @@ function createInfluxClient() {
     const influx = new Influx.InfluxDB('http://localhost:8086/weather');
     return influx;
 }
+const influx = createInfluxClient();
 
 router.get('/:period/:param', async function (req, res, next) {
     let param = req.params.param;
@@ -22,7 +23,6 @@ router.get('/:period/:param', async function (req, res, next) {
     console.log("today : ", endDatetime);
     let valeurs = {};
     //Creata an influx client using default db (express_response_db) for now
-    const influx = createInfluxClient();
     console.log("param : ", param)
     let period = req.params.period;
     console.log("period : ", period)
@@ -59,6 +59,8 @@ router.get('/:period/:param', async function (req, res, next) {
                 name: results[index].name,
                 desc: results[index].desc,
                 unit: results[index].unit,
+                values: [],
+                times: []
             }
         }
 
@@ -70,85 +72,109 @@ router.get('/:period/:param', async function (req, res, next) {
         let result;
 
         let period_date = new Date();
+        let a = new Date();
         let step;
         let stepping;
         if (period == "day") {
             console.log("------day case------");
             period_date.setHours(endDatetime.getHours() - 24);
             console.log("date_day : ", period_date);
+            a.setHours(a.getHours() - 24);
+            console.log("date_day+1h : ", a);
             stepping = 24;
-            let a = period_date;
             for (let i = 1; i < stepping + 1; i++) {
                 console.log(i)
-                console.log("date_dayà : ", period_date);
-                console.log("AA", a)
+                console.log("date_dayà : ", period_date.toISOString());
                 a.setHours(a.getHours() + 1);
-                console.log("EUH", a)
-                result = influx.query(
-                    `SELECT mean(value) as mean FROM ${param} WHERE time > '${period_date.toISOString()}' AND time < '${a.toISOString()}'`
-                );
-                result.then(r => {
-                    allValue.push(r.mean);
-                    console.log("value", r)
+                console.log("date_day+1h : ", a.toISOString());
 
-                    allTime.push(period_date)
-                    console.log("perido", period_date)
+                let moyenne = getMeanValue(param, period_date, a);
 
+                moyenne.then(r => {
+                    console.log("valuemoyenne", r)
+                    valeurs.measurements[param].values.push(r)
+                    console.log("valuetime", time)
+                    valeurs.measurements[param].times.push(period_date);
                 })
+                period_date.setHours(period_date.getHours() + 1)
+
             }
-            valeurs.measurements[param].values = allValue;
-            console.log("values List", allValue)
-            valeurs.measurements[param].times = allTime;
-            console.log("times List", allTime)
-
-
         }
         else if (period == "week") {
             console.log("------week case------");
             period_date.setHours(endDatetime.getHours() - 7 * 24);
             console.log("date_week : ", period_date);
+            a.setHours(a.getHours() - 7 * 24);
+            console.log("date_week+12h : ", a);
             stepping = 14;
-            step = (endDatetime - period_date) / stepping;
-            console.log("step_week : ", step);
+            for (let i = 1; i < stepping + 1; i++) {
+                console.log(i)
+                console.log("date_week : ", period_date.toISOString());
+                a.setHours(a.getHours() + 12);
+                console.log("date_week+12h : ", a.toISOString());
+
+                let moyenne = getMeanValue(param, period_date, a);
+
+                moyenne.then(r => {
+                    console.log("valuemoyenne", r)
+                    valeurs.measurements[param].values.push(r)
+                    console.log("valuetime", time)
+                    valeurs.measurements[param].times.push(period_date);
+                })
+                period_date.setHours(period_date.getHours() + 12)
+            }
         }
         else if (period == "month") {
             console.log("------month case------");
-            period_date.setMonth(endDatetime.getMonth() - 1);
+            period_date.setMonth(endDatetime.getMonth() - 12);
             console.log("date_month : ", period_date);
+            a.setMonth(endDatetime.getMonth() - 12);
+            console.log("date_month+1day : ", a);
             stepping = 30;
-            step = (endDatetime - period_date) / stepping;
-            console.log("step_month : ", step);
+            for (let i = 1; i < stepping + 1; i++) {
+                console.log(i)
+                console.log("date_month : ", period_date.toISOString());
+                a.setMonth(a.getMonth() + 1);
+                console.log("date_month+1month : ", a.toISOString());
+
+                let moyenne = getMeanValue(param, period_date, a);
+
+                moyenne.then(r => {
+                    console.log("valuemoyenne", r)
+                    valeurs.measurements[param].values.push(r)
+                    console.log("valuetime", time)
+                    valeurs.measurements[param].times.push(period_date);
+                })
+                period_date.setMonth(period_date.getMonth() + 1)
+            }
         }
-        else if (period == "year") {
-            console.log("------year case------");
-            period_date.setFullYear(endDatetime.getFullYear() - 1);
-            console.log("date_year : ", period_date);
-            stepping = 52;
-            step = (endDatetime - period_date) / stepping;
-            console.log("step_year : ", step);
-        }
-
-
-        // await result.then(results => {
-        //     for (let index = 0; index < results.length; index++) {
-        //         console.log("VALEUR",results[index])
-        //         // allValue.push(parseFloat(results[index].value))
-        //         // allTime.push(results[index].date)
-        //         // valeurs.measurements[param] = {
-        //         //     name: results[index].name,
-        //         //     desc: results[index].name,
-        //         //     unit: results[index].unit,
-        //         // }
-        //     }
-
-        //     // 
-        // })
-
-
         res.json(valeurs)
     }
     )
-
 })
+
+
+async function getMeanValue(param, period_date, a) {
+    console.log("requete", `SELECT mean(value) as mean FROM ${param} WHERE time > '${period_date.toISOString()}' AND time < '${a.toISOString()}'`)
+    await influx.query(
+        `SELECT mean(value) as mean FROM ${param} WHERE time > '${period_date.toISOString()}' AND time < '${a.toISOString()}'`).then(r => {
+            if (r[0]) {
+                if (r[0].mean) {
+                    console.log("moyenne", r[0].mean)
+                    return r[0].mean
+                    // allValue.push(r[0].mean);
+                } else {
+                    console.log("moyenne", 0)
+                    return 0
+                    // allValue.push(0);
+                }
+            }
+            else {
+                console.log("moyenne", 0)
+                return 0
+                // allValue.push(0);
+            }
+        })
+}
 
 module.exports = router;
