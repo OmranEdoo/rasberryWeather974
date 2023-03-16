@@ -14,9 +14,11 @@ export const getArchiveData = async function getArchiveData(url, periode, featur
                     return response.measurements.hum;
                 case 'pre':
                     return response.measurements.pre;
-                case 'windS':
+                case 'rain':
+                    return response.measurements.rain;
+                case 'wind_speed':
                     return response.measurements.wind_speed;
-                case 'windD':
+                case 'wind_dir':
                     return response.measurements.wind_dir;
                 case 'gps':
                     return response.location;

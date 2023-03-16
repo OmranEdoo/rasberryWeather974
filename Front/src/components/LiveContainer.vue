@@ -3,7 +3,7 @@
         <h1 id="title">Live Data</h1>
         <div class="boxContainer containerRow marg">
             <div v-for="(value, key) in urls" :key="value">
-                <input type="radio" :value="value" v-model="url" @change="changeFeatures"/>
+                <input type="radio" :value="value" v-model="url" @change="changeFeatures" />
                 <label style="margin-left: 10px;" for="">{{ key }}</label>
             </div>
         </div>
@@ -45,6 +45,21 @@ export default {
                 src: "https://mdbootstrap.com/img/Photos/Slides/img%20(10).webp",
                 alt: "...",
                 caption: ""
+            },
+            {
+                src: "https://mdbootstrap.com/img/Photos/Slides/img%20(16).webp",
+                alt: "...",
+                caption: ""
+            },
+            {
+                src: "https://mdbootstrap.com/img/Photos/Slides/img%20(17).webp",
+                alt: "...",
+                caption: ""
+            },
+            {
+                src: "https://mdbootstrap.com/img/Photos/Slides/img%20(18).webp",
+                alt: "...",
+                caption: ""
             }
         ];
         const carousel1 = ref(0);
@@ -60,38 +75,48 @@ export default {
             humValue: null,
             preValue: null,
             tempValue: null,
-            slideInterval: 100,
+            windSValue: null,
+            windDValue: null,
+            gpsValue: null,
+            slideInterval: 1000,
             urls: {
-                "Rasberry 25": "http://piensg025:3000/archive/",
-                "Rasberry 26": "http://piensg026:3000/archive/",
-                "Rasberry 27": "http://piensg027:3000/archive/",
-                "Rasberry 28": "http://piensg028:3000/archive/",
-                "Rasberry 29": "http://piensg029:3000/archive/",
-                "Rasberry 30": "http://piensg030:3000/archive/"
+                "Rasberry 25": "http://piensg025:3000/live/",
+                "Rasberry 26": "http://piensg026:3000/live/",
+                "Rasberry 27": "http://piensg027:3000/live/",
+                "Rasberry 28": "http://piensg028:3000/live/",
+                "Rasberry 29": "http://piensg029:3000/live/",
+                "Rasberry 30": "http://piensg030:3000/live/"
             },
-            url: 'http://piensg025:3000/archive/'
+            url: 'http://piensg027:3000/live/'
         }
     },
-    async mounted() {
+    mounted() {
         this.changeFeatures();
     },
     methods: {
         async changeFeatures() {
             this.lumValue = await this.getLiveData(this.url, "lum");
-            this.items1[0].caption = "Luminosity : " + this.lumValue.toString() + " lux";
+            this.items1[0].caption = "Luminosity : " + this.lumValue.value.toString() + " " + this.lumValue.unit;
             this.humValue = await this.getLiveData(this.url, "hum");
-            this.items1[1].caption = "Humidity : " + this.humValue.toString() + "%";
+            this.items1[1].caption = "Humidity : " + this.humValue.value.toString() + " " + this.humValue.unit;
             this.preValue = await this.getLiveData(this.url, "pre");
-            this.items1[2].caption = "Pressure : " + this.preValue.toString() + " hPa";
+            this.items1[2].caption = "Pressure : " + this.preValue.value.toString() + " " + this.preValue.unit;
             this.tempValue = await this.getLiveData(this.url, "temp");
-            this.items1[3].caption = "Temperature : " + this.tempValue.toString() + "°C";
-            this.tempValue = await this.getLiveData(this.url, "windS");
-            this.items1[3].caption = "Wind Speed : " + this.tempValue.toString() + "";
-            this.tempValue = await this.getLiveData(this.url, "windD");
-            this.items1[3].caption = "Wind Direction : " + this.tempValue.toString() + "";
-            this.tempValue = await this.getLiveData(this.url, "gps");
-            this.items1[3].caption = "Gps : " + this.tempValue.toString() + "";
+            this.items1[3].caption = "Temperature : " + this.tempValue.value.toString() + " " + this.tempValue.unit;
+            this.windSValue = await this.getLiveData(this.url, "wind_speed");
+            this.items1[4].caption = "Wind Speed : " + this.windSValue.value.toString() + " " + this.windSValue.unit;
+            this.windDValue = await this.getLiveData(this.url, "wind_dir");
+            this.items1[5].caption = "Wind Direction : " + this.windDValue.value.toString() + " " + this.windDValue.unit;
+            this.gpsValue = await this.getLiveData(this.url, "gps");
+            this.items1[6].caption = "Lat : " + this.truncateFloat(this.gpsValue.lat, 2) + " Long : " + this.truncateFloat(this.gpsValue.long, 2);
             this.slideInterval = 2000;
+        },
+        truncateFloat(number, decimalIndex) {
+            let res = "";
+            let entier = number.toString().split('.')[0];
+            let decimal = number.toString().split('.')[1];
+            res = entier + '.' + decimal.slice(0, decimalIndex);
+            return res;
         }
     }
 }

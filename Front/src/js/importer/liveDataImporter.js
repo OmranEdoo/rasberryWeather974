@@ -4,7 +4,7 @@ export const getAllLiveData = async function getAllLiveData(url) {
     })
         .then(response => response.json())
         .then(response => {
-            
+
             const values = response.measurements;
 
             const lum = values.lum.value;
@@ -40,17 +40,20 @@ export const getLiveData = async function getLiveData(url, feature) {
 
             switch (feature) {
                 case 'lum':
-                    return response.measurements.lum.value;
+                    return response.measurements.lum;
                 case 'temp':
-                    return response.measurements.temp.value;
+                    return response.measurements.temp;
                 case 'hum':
-                    return response.measurements.hum.value;
+                    return response.measurements.hum;
                 case 'pre':
-                    return response.measurements.pre.value;
-                case 'windS':
-                    return response.measurements.wind_speed.value;
-                case 'windD':
-                    return response.measurements.wind_dir.value;
+                    return response.measurements.pre;
+                case 'rain':
+                    return response.measurements.rain;
+                case 'wind_speed':
+                    console.log(response)
+                    return response.measurements.wind_speed;
+                case 'wind_dir':
+                    return response.measurements.wind_dir;
                 case 'gps':
                     return response.location;
                 default:
