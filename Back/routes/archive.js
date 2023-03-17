@@ -83,22 +83,28 @@ router.get('/:period/:param', async function (req, res, next) {
             console.log("date_day+1h : ", a);
             stepping = 24;
             for (let i = 1; i < stepping + 1; i++) {
+
                 console.log(i)
                 console.log("date_dayà : ", period_date.toISOString());
                 a.setHours(a.getHours() + 1);
                 console.log("date_day+1h : ", a.toISOString());
 
-                let moyenne = getMeanValue(param, period_date, a);
+                let moyenne = getMeanValue(param, period_date, a, allTime);
+                allValue.push(moyenne);
 
-                moyenne.then(r => {
-                    console.log("valuemoyenne", r)
-                    valeurs.measurements[param].values.push(r)
-                    console.log("valuetime", time)
-                    valeurs.measurements[param].times.push(period_date);
-                })
+                let periodDateCopy = structuredClone(period_date);
+                allTime.push(periodDateCopy)
+                console.log("yesterdays", allTime)
+
                 period_date.setHours(period_date.getHours() + 1)
 
             }
+            valeurs.measurements[param].times = allTime
+            console.log("allllll", allTime)
+            Promise.all(allValue).then(r => {
+                valeurs.measurements[param].values = r
+                res.json(valeurs)
+            })
         }
         else if (period == "week") {
             console.log("------week case------");
@@ -113,16 +119,24 @@ router.get('/:period/:param', async function (req, res, next) {
                 a.setHours(a.getHours() + 12);
                 console.log("date_week+12h : ", a.toISOString());
 
-                let moyenne = getMeanValue(param, period_date, a);
+                let moyenne = getMeanValue(param, period_date, a, allTime);
+                allValue.push(moyenne);
 
-                moyenne.then(r => {
-                    console.log("valuemoyenne", r)
-                    valeurs.measurements[param].values.push(r)
-                    console.log("valuetime", time)
-                    valeurs.measurements[param].times.push(period_date);
-                })
+                let periodDateCopy = structuredClone(period_date);
+                allTime.push(periodDateCopy)
+                console.log("yesterdays", allTime)
+
                 period_date.setHours(period_date.getHours() + 12)
+
             }
+            valeurs.measurements[param].times = allTime
+            console.log("allllll", allTime)
+            Promise.all(allValue).then(r => {
+                valeurs.measurements[param].values = r
+                res.json(valeurs)
+            })
+
+
         }
         else if (period == "month") {
             console.log("------month case------");
@@ -137,26 +151,34 @@ router.get('/:period/:param', async function (req, res, next) {
                 a.setMonth(a.getMonth() + 1);
                 console.log("date_month+1month : ", a.toISOString());
 
-                let moyenne = getMeanValue(param, period_date, a);
+                let moyenne = getMeanValue(param, period_date, a, allTime);
+                allValue.push(moyenne);
 
-                moyenne.then(r => {
-                    console.log("valuemoyenne", r)
-                    valeurs.measurements[param].values.push(r)
-                    console.log("valuetime", time)
-                    valeurs.measurements[param].times.push(period_date);
-                })
+                let periodDateCopy = structuredClone(period_date);
+                allTime.push(periodDateCopy)
+                console.log("yesterdays", allTime)
+
                 period_date.setMonth(period_date.getMonth() + 1)
+
             }
+            valeurs.measurements[param].times = allTime
+            console.log("allllll", allTime)
+            Promise.all(allValue).then(r => {
+                valeurs.measurements[param].values = r
+                res.json(valeurs)
+            })
+
+
         }
-        res.json(valeurs)
+
     }
     )
 })
 
 
-async function getMeanValue(param, period_date, a) {
+async function getMeanValue(param, period_date, a, allTime) {
     console.log("requete", `SELECT mean(value) as mean FROM ${param} WHERE time > '${period_date.toISOString()}' AND time < '${a.toISOString()}'`)
-    await influx.query(
+    let r = await influx.query(
         `SELECT mean(value) as mean FROM ${param} WHERE time > '${period_date.toISOString()}' AND time < '${a.toISOString()}'`).then(r => {
             if (r[0]) {
                 if (r[0].mean) {
@@ -175,6 +197,7 @@ async function getMeanValue(param, period_date, a) {
                 // allValue.push(0);
             }
         })
+    return r
 }
 
 module.exports = router;
