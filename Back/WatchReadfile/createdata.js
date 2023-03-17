@@ -4,9 +4,9 @@ const gps = require('chokidar');
 const rain = require('chokidar');
 const influx = new Influx.InfluxDB('http://localhost:8086/weather')
 const nmea = require('@drivetech/node-nmea');
-const path_sensors = "/home/formation/Documents/LinaTSI/01.JS/dev/shm/sensors";
-const path_gps = "/home/formation/Documents/LinaTSI/01.JS/dev/shm/gpsNmea";
-const path_rain = "/home/formation/Documents/LinaTSI/01.JS/dev/shm/rainCounter.log";
+const path_sensors = "/dev/shm/sensors";
+const path_gps = "/dev/shm/gpsNmea";
+const path_rain = "/dev/shm/rainCounter.log";
 
 // Create a table in InfluxDB
 influx.getDatabaseNames()
